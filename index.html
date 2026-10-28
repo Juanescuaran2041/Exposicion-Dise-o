@@ -50,7 +50,7 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .stage { width: 1280px; height: 720px; position: relative; transform-origin: center center; flex: none; }
 .slide {
   position: absolute; inset: 0; display: none; flex-direction: column; overflow: hidden; border-radius: 14px;
-  padding: 34px 48px 30px; background:
+  padding: 26px 44px 22px; background:
     radial-gradient(700px 380px at 100% 0%, color-mix(in srgb, var(--p) 16%, transparent), transparent 70%),
     radial-gradient(600px 400px at 0% 100%, color-mix(in srgb, var(--p) 8%, transparent), transparent 70%),
     var(--paper);
@@ -119,24 +119,24 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 
 /* ===== lámina de patrón ===== */
 .p-head { display: flex; align-items: center; gap: 20px; }
-.p-num { width: 70px; height: 70px; border-radius: 20px; flex: none; display: grid; place-items: center; background: var(--p); color: #0b0d14; font-family: var(--f-display); font-weight: 800; font-size: 28px;
+.p-num { width: 60px; height: 60px; border-radius: 17px; flex: none; display: grid; place-items: center; background: var(--p); color: #0b0d14; font-family: var(--f-display); font-weight: 800; font-size: 25px;
   box-shadow: 0 12px 30px color-mix(in srgb, var(--p) 35%, transparent); }
-.p-title h2 { font-size: 40px; letter-spacing: -.02em; line-height: 1.05; }
-.p-title .en { font-family: var(--f-mono); font-size: 14px; color: var(--muted); margin-top: 4px; }
+.p-title h2 { font-size: 35px; letter-spacing: -.02em; line-height: 1.05; }
+.p-title .en { font-family: var(--f-mono); font-size: 13px; color: var(--muted); margin-top: 3px; }
 .toggle { margin-left: auto; display: flex; padding: 5px; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); position: relative; }
-.toggle button { position: relative; z-index: 1; border: 0; background: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; color: var(--muted); transition: color .25s; }
+.toggle button { position: relative; z-index: 1; border: 0; background: none; padding: 8px 18px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; color: var(--muted); transition: color .25s; }
 .toggle .pill { position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px); border-radius: 10px; background: var(--bad); transition: transform .35s cubic-bezier(.3,1.3,.5,1), background .3s; }
 .slide.after .toggle .pill { transform: translateX(100%); background: var(--good); }
 .slide:not(.after) .toggle .b-before, .slide.after .toggle .b-after { color: #0b0d14; }
 
-.ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 10px; }
-.idea { display: flex; gap: 12px; align-items: center; padding: 8px 14px; border-radius: 13px; background: var(--surface); border: 1px solid var(--rule); }
+.ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 9px 0 8px; }
+.idea { display: flex; gap: 11px; align-items: center; padding: 6px 13px; border-radius: 13px; background: var(--surface); border: 1px solid var(--rule); }
 .idea .tag { flex: none; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .12em; padding: 5px 9px; border-radius: 7px; background: color-mix(in srgb, var(--p) 18%, transparent); color: var(--p); }
-.idea p { margin: 0; font-size: 16px; line-height: 1.3; }
+.idea p { margin: 0; font-size: 15px; line-height: 1.3; }
 
-.work { display: grid; grid-template-columns: 1fr 1.2fr; gap: 18px; flex: 1; min-height: 0; }
+.work { display: grid; grid-template-columns: 480px 1fr; gap: 14px; flex: 1; min-height: 0; }
 .pane { border-radius: 16px; border: 1px solid var(--rule); overflow: hidden; display: flex; flex-direction: column; min-height: 0; position: relative; }
-.pane-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-family: var(--f-mono); font-size: 12.5px; color: #9aa0b8; background: var(--code-head); border-bottom: 1px solid #23273a; }
+.pane-head { display: flex; align-items: center; gap: 8px; padding: 6px 12px; font-family: var(--f-mono); font-size: 12px; color: #9aa0b8; background: var(--code-head); border-bottom: 1px solid #23273a; }
 .pane-head i { width: 11px; height: 11px; border-radius: 50%; background: #3a3f55; display: inline-block; }
 .pane-head .fname { margin-left: 8px; color: #e4e7f3; }
 .pane-head .state { margin-left: auto; font-weight: 600; padding: 2px 9px; border-radius: 99px; font-size: 11px; letter-spacing: .08em; }
@@ -154,20 +154,21 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .diag-pane { background: var(--surface); }
 .diag-pane .pane-head { background: var(--box-head); color: var(--muted); border-bottom-color: var(--rule); }
 .diag-pane .pane-head .fname { color: var(--ink); }
-.diag-wrap { flex: 1; position: relative; padding: 8px; min-height: 0;
+.diag-wrap { flex: 1; position: relative; padding: 6px; min-height: 0;
   background-image: radial-gradient(circle, color-mix(in srgb, var(--muted) 22%, transparent) 1px, transparent 1.2px); background-size: 18px 18px; }
-.diag-wrap svg { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: calc(100% - 16px); overflow: visible; }
-.legend { margin-left: auto; display: flex; gap: 8px; font-size: 10px; color: var(--muted); font-family: var(--f-body); }
+.diag-wrap svg { position: absolute; top: 6px; left: 6px; width: calc(100% - 12px); height: calc(100% - 12px); overflow: visible; }
+.legend { margin-left: auto; display: flex; gap: 9px; font-size: 9.5px; color: var(--muted); font-family: var(--f-body); }
+.legend span { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 2px; }
 .legend span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 .legend svg { flex: none; }
 .legend .hollow-lg { fill: var(--box); }
 
-.verdict { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 10px 15px; border-radius: 14px; border: 1px solid var(--rule); background: var(--surface); }
-.verdict .vi { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; color: #0b0d14; background: var(--bad); transition: background .3s; }
+.verdict { display: flex; align-items: center; gap: 13px; margin-top: 8px; padding: 7px 14px; border-radius: 14px; border: 1px solid var(--rule); background: var(--surface); }
+.verdict .vi { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; flex: none; color: #0b0d14; background: var(--bad); transition: background .3s; }
 .slide.after .verdict .vi { background: var(--good); }
-.verdict .vt { font-size: 16px; flex: 1; }
+.verdict .vt { font-size: 15px; flex: 1; }
 .kpi { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); padding-left: 16px; border-left: 1px solid var(--rule); }
-.kpi .kv { font-family: var(--f-display); font-weight: 800; font-size: 20px; padding: 2px 10px; border-radius: 8px; transition: all .35s; }
+.kpi .kv { font-family: var(--f-display); font-weight: 800; font-size: 18px; padding: 2px 9px; border-radius: 8px; transition: all .35s; }
 .kpi .k-before { color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
 .kpi .k-after { color: var(--muted); opacity: .45; }
 .slide.after .kpi .k-before { opacity: .45; color: var(--muted); background: none; text-decoration: line-through; }
@@ -566,10 +567,10 @@ class Pedido {
   dBefore: {
     boxes: [
       { id: "bot", name: "BotonPagar", st: "UI", x: 0, y: 0, w: 310, attrs: ["inventario: Inventario", "pasarela: PasarelaPago", "pedidos: RepositorioPedidos"], ops: ["BotonPagar(inventario, pasarela, pedidos)", "!alHacerClic(unidades, total, tarjeta)", "-mostrarError(mensaje)", "-mostrarRecibo(pedido)"], kind: "bad pulse" },
-      { id: "inv", name: "Inventario", x: 330, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
-      { id: "pas", name: "PasarelaPago", x: 330, y: 145, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] },
-      { id: "rep", name: "RepositorioPedidos", x: 330, y: 235, w: 225, attrs: ["guardados: ArrayList<Pedido>"], ops: ["guardar(pedido)", "cantidad(): int"] },
-      { id: "ped", name: "Pedido", x: 0, y: 235, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
+      { id: "inv", name: "Inventario", x: 390, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
+      { id: "pas", name: "PasarelaPago", x: 390, y: 150, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] },
+      { id: "rep", name: "RepositorioPedidos", x: 390, y: 240, w: 225, attrs: ["guardados: ArrayList<Pedido>"], ops: ["guardar(pedido)", "cantidad(): int"] },
+      { id: "ped", name: "Pedido", x: 0, y: 240, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
     ],
     edges: [
       { a: "bot", b: "inv", t: "assoc", k: "bad", ma: "0..*", mb: "1" },
@@ -583,10 +584,10 @@ class Pedido {
     boxes: [
       { id: "bot", name: "BotonPagar", st: "UI", x: 0, y: 0, w: 285, attrs: ["controlador: ControladorCompra"], ops: ["BotonPagar(controlador)", "alHacerClic(unidades, total, tarjeta)", "-mostrarError(mensaje)", "-mostrarRecibo(pedido)"] },
       { id: "con", name: "ControladorCompra", st: "controlador", x: 0, y: 185, w: 365, attrs: ["inventario: Inventario", "pasarela: PasarelaPago", "pedidos: RepositorioPedidos"], ops: ["ControladorCompra(inventario, pasarela, pedidos)", "*confirmarCompra(unidades, total, tarjeta): Pedido"], kind: "good" },
-      { id: "inv", name: "Inventario", x: 390, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
-      { id: "pas", name: "PasarelaPago", x: 390, y: 150, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] },
-      { id: "rep", name: "RepositorioPedidos", x: 390, y: 235, w: 225, attrs: ["guardados: ArrayList<Pedido>"], ops: ["guardar(pedido)", "cantidad(): int"] },
-      { id: "ped", name: "Pedido", x: 390, y: 360, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
+      { id: "inv", name: "Inventario", x: 450, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
+      { id: "pas", name: "PasarelaPago", x: 450, y: 150, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] },
+      { id: "rep", name: "RepositorioPedidos", x: 450, y: 235, w: 225, attrs: ["guardados: ArrayList<Pedido>"], ops: ["guardar(pedido)", "cantidad(): int"] },
+      { id: "ped", name: "Pedido", x: 450, y: 360, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
     ],
     edges: [
       { a: "bot", b: "con", t: "assoc", k: "good", ma: "0..*", mb: "1" },
@@ -1103,15 +1104,18 @@ function renderDiagram(d, uid) {
     return s;
   };
   /* coloca una etiqueta sobre la linea buscando el lado que no tape nada */
-  const poner = (px, py, ux, uy, text, cls, lados) => {
+  const poner = (px, py, ux, uy, text, cls, lados, largos) => {
     const mult = cls === "mult";
     const w = text.length * (mult ? 6.3 : 6.9) + 10, h = mult ? 15 : 17;
     let mejor = null;
-    for (const dd of lados) {
-      const x = px - uy * dd, y = py + ux * dd;
-      const s = invade({ x: x - w / 2, y: y - h / 2, w, h });
-      if (mejor === null || s < mejor.s) mejor = { x, y, s };
-      if (s === 0) break;
+    for (const dl of largos) {
+      for (const dd of lados) {
+        const x = px + ux * dl - uy * dd, y = py + uy * dl + ux * dd;
+        const s = invade({ x: x - w / 2, y: y - h / 2, w, h });
+        if (mejor === null || s < mejor.s) mejor = { x, y, s };
+        if (s === 0) break;
+      }
+      if (mejor.s === 0) break;
     }
     puestas.push({ x: mejor.x - w / 2, y: mejor.y - h / 2, w, h });
     return tag(mejor.x, mejor.y, text, cls);
@@ -1129,9 +1133,12 @@ function renderDiagram(d, uid) {
     const len = Math.hypot(x2 - x1, y2 - y1) || 1;
     const ux = (x2 - x1) / len, uy = (y2 - y1) / len, off = Math.min(28, len * 0.24);
     let txt = "";
-    if (e.ma) txt += poner(x1 + ux * off, y1 + uy * off, ux, uy, e.ma, "mult", [13, -13, 20, -20, 27, -27]);
-    if (e.mb) txt += poner(x2 - ux * off, y2 - uy * off, ux, uy, e.mb, "mult", [13, -13, 20, -20, 27, -27]);
-    if (e.label) txt += poner((x1 + x2) / 2, (y1 + y2) / 2, ux, uy, e.label, "lbl", [0, -22, 22, -32, 32, -42, 42]);
+    const LADOS = [13, -13, 20, -20, 27, -27, 34, -34];
+    /* la multiplicidad puede correrse por la linea, pero sin pasar de su mitad */
+    const tope = len * 0.4, corre = [0, 13, 26, -9, 39].filter(v => off + v > 6 && off + v < tope).concat([0]);
+    if (e.ma) txt += poner(x1 + ux * off, y1 + uy * off, ux, uy, e.ma, "mult", LADOS, corre);
+    if (e.mb) txt += poner(x2 - ux * off, y2 - uy * off, ux, uy, e.mb, "mult", LADOS, corre.map(v => -v));
+    if (e.label) txt += poner((x1 + x2) / 2, (y1 + y2) / 2, ux, uy, e.label, "lbl", [0, -22, 22, -32, 32, -42, 42], [0, -18, 18, -30, 30]);
     edges += `<g class="edge ${e.t} ${e.k || ""} fade" style="animation-delay:${200 + i * 90}ms"><path class="ln" d="M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}" ${ms} ${me}/>${txt}</g>`;
     i++;
   }
@@ -1170,7 +1177,7 @@ const LG = {
   impl:  `<path d="M1 6 H16" stroke-dasharray="4 3"/><path d="M16 2 L24 6 L16 10 Z" class="hollow-lg"/>`
 };
 const LEGEND = [["dep", "dependencia"], ["assoc", "asociación"], ["aggr", "agregación"], ["comp", "composición"], ["impl", "implementa"]]
-  .map(([k, t]) => `<span><svg width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.5">${LG[k]}</svg>${t}</span>`).join("");
+  .map(([k, t]) => `<span><svg width="23" height="11" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.5">${LG[k]}</svg>${t}</span>`).join("");
 
 const ICON_X = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
 const ICON_OK = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`;
