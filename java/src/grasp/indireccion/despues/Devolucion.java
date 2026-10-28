@@ -10,6 +10,6 @@ public class Devolucion {
     }
 
     public double impuesto() {
-        return impuestos.calcular("CO", subtotal, "DEVOLUCION");
+        return impuestos.calcular(subtotal);
     }
 }

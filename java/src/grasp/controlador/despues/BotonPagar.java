@@ -11,13 +11,13 @@ public class BotonPagar {
         this.controlador = controlador;
     }
 
+    // La interfaz delega y pinta.
     public void alHacerClic(Carrito carrito, Cliente cliente) {
-        Resultado resultado = controlador.confirmarCompra(carrito, cliente);
-
-        if (resultado.isExito()) {
-            mostrarRecibo(resultado.getPedido());
+        Pedido pedido = controlador.confirmarCompra(carrito, cliente);
+        if (pedido != null) {
+            mostrarRecibo(pedido);
         } else {
-            mostrarError(resultado.getMensaje());
+            mostrarError("No se pudo completar la compra");
         }
     }
 
@@ -26,7 +26,7 @@ public class BotonPagar {
     }
 
     private void mostrarRecibo(Pedido pedido) {
-        System.out.printf("    [pantalla] OK: Recibo %s por $%,.0f%n",
-                pedido.getId(), pedido.getTotal());
+        System.out.printf("    [pantalla] OK: compra de %s por $%,.0f%n",
+                pedido.getCliente().getNombre(), pedido.getTotal());
     }
 }

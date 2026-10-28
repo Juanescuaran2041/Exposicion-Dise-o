@@ -10,9 +10,8 @@ public class Cotizacion {
     }
 
     public double impuesto() {
-        ApiImpuestos api = new ApiImpuestos("CLAVE-123");
-        long centavos = api.calcularEnCentavos("CO", Math.round(subtotal * 100), "COTIZACION");
-
+        ApiImpuestos api = new ApiImpuestos("CLAVE-123");             // las mismas lineas
+        long centavos = api.calcularEnCentavos(Math.round(subtotal * 100));
         if (centavos == -1) {
             return subtotal * 0.19;
         }

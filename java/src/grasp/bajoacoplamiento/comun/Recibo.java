@@ -11,9 +11,6 @@ public class Recibo {
         this.autorizacion = autorizacion;
     }
 
-    public double getMonto()        { return monto; }
-    public String getAutorizacion() { return autorizacion; }
-
     @Override
     public String toString() {
         return String.format("Recibo{venta=%s, monto=$%,.0f, aut=%s}",

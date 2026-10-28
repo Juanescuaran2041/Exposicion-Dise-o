@@ -3,15 +3,9 @@ package grasp.creador.antes;
 import java.util.ArrayList;
 
 public class Pedido {
-    private String id;
     private ArrayList<LineaPedido> lineas = new ArrayList<LineaPedido>();
 
-    public Pedido(String id) {
-        this.id = id;
-    }
-
-    public String getId() { return id; }
-
+    // Abre su lista para que otros le metan lineas.
     public ArrayList<LineaPedido> getLineas() {
         return lineas;
     }

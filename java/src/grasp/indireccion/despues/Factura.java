@@ -10,10 +10,6 @@ public class Factura {
     }
 
     public double impuesto() {
-        return impuestos.calcular("CO", subtotal, "FACTURA");
-    }
-
-    public double total() {
-        return subtotal + impuesto();
+        return impuestos.calcular(subtotal);
     }
 }

@@ -11,7 +11,6 @@ public class Producto {
         this.iva = iva;
     }
 
-    public String getNombre() { return nombre; }
     public double getPrecio() { return precio; }
     public double getIva()    { return iva; }
 }

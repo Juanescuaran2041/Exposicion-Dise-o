@@ -11,8 +11,7 @@ public class Producto {
         this.iva = iva;
     }
 
-    public String getNombre() { return nombre; }
-
+    // El IVA lo sabe el producto: el tiene el dato.
     public double precioConIva() {
         return precio * (1 + iva);
     }

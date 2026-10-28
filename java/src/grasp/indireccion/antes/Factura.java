@@ -10,12 +10,11 @@ public class Factura {
     }
 
     public double impuesto() {
-        ApiImpuestos api = new ApiImpuestos("CLAVE-123");       // clave repetida
-        long centavos = api.calcularEnCentavos("CO", Math.round(subtotal * 100), "FACTURA");
-
+        ApiImpuestos api = new ApiImpuestos("CLAVE-123");             // clave repetida
+        long centavos = api.calcularEnCentavos(Math.round(subtotal * 100));
         if (centavos == -1) {
-            return subtotal * 0.19;                             // plan B
+            return subtotal * 0.19;                                   // plan B
         }
-        return centavos / 100.0;                                // centavos a pesos
+        return centavos / 100.0;                                      // centavos a pesos
     }
 }

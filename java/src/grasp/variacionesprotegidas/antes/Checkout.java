@@ -6,14 +6,13 @@ import grasp.variacionesprotegidas.comun.Pedido;
 import grasp.variacionesprotegidas.comun.Recibo;
 
 public class Checkout {
-    private PayPalSDK paypal = new PayPalSDK("comercio-1");   // decidido aqui
+    private PayPalSDK paypal = new PayPalSDK();      // decidido aqui
 
     public Recibo pagar(Pedido pedido) {
-        PayPalPago pago = paypal.createPayment(pedido.getTotal(), "USD");
-
-        if (!pago.getEstado().equals("APPROVED")) {            // idioma de PayPal
-            throw new IllegalStateException("Pago rechazado: " + pago.getCodigoError());
+        PayPalPago pago = paypal.createPayment(pedido.getTotal());
+        if (!pago.getEstado().equals("APPROVED")) {  // el idioma de PayPal
+            throw new IllegalStateException("Pago rechazado");
         }
-        return new Recibo(pago.getId(), pago.getMonto(), "PayPal");
+        return new Recibo(pago.getId(), pago.getMonto());
     }
 }

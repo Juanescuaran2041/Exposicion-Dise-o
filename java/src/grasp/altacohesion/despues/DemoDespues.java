@@ -5,24 +5,16 @@ import java.util.ArrayList;
 public class DemoDespues {
     public static void ejecutar() {
         ArrayList<Compra> compras = new ArrayList<Compra>();
-        for (int i = 1; i <= 5; i++) {
-            compras.add(new Compra("C" + i, 50000));
-        }
-        Usuario ana = new Usuario("Ana", "ana@mail.com", "1234", compras);
+        compras.add(new Compra(100000));
+        compras.add(new Compra(50000));
+        Usuario ana = new Usuario("Ana", "ana@correo.com", compras);
 
-        RepositorioUsuarios repositorio = new RepositorioUsuarios();
-        ServicioCorreo correo = new ServicioCorreo();
-        ReporteUsuarios reporte = new ReporteUsuarios();
-        ProgramaFidelidad fidelidad = new ProgramaFidelidad();
-
-        System.out.println("DESPUES  (cinco clases, un tema cada una)");
-        System.out.println("  clave correcta: " + ana.claveCoincide("1234"));
-        repositorio.guardar(ana);
-        correo.bienvenida(ana);
-        System.out.println("    " + reporte.generar(repositorio.todos()));
-        System.out.printf("    nivel %s · descuento = %.0f%%%n",
-                fidelidad.nivel(ana), fidelidad.descuento(ana) * 100);
-        System.out.printf("    total comprado = $%,.0f%n", ana.totalComprado());
+        System.out.println("DESPUES");
+        new RepositorioUsuarios().guardar(ana);
+        new ServicioCorreo().bienvenida(ana);
+        System.out.println("  " + new ReporteUsuarios().generar(ana));
+        System.out.printf("  descuento = %.0f%%%n",
+                new ProgramaFidelidad().descuento(ana) * 100);
         System.out.println("  Usuario solo habla del usuario.");
         System.out.println();
     }

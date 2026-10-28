@@ -10,6 +10,6 @@ public class Cotizacion {
     }
 
     public double impuesto() {
-        return impuestos.calcular("CO", subtotal, "COTIZACION");
+        return impuestos.calcular(subtotal);
     }
 }

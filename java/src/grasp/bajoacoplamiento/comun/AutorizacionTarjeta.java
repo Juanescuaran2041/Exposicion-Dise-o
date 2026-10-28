@@ -8,9 +8,6 @@ public class AutorizacionTarjeta {
     }
 
     public String autorizar(double monto) {
-        if (!tarjeta.startsWith("4")) {
-            throw new IllegalStateException("Tarjeta rechazada");
-        }
-        return "AUT-" + (int) monto + "-" + tarjeta.substring(0, 4);
+        return "AUT-" + tarjeta + "-" + (int) monto;
     }
 }

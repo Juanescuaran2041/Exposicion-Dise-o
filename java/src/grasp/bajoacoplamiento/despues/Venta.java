@@ -1,29 +1,24 @@
 package grasp.bajoacoplamiento.despues;
 
-import grasp.bajoacoplamiento.comun.EstadoVenta;
 import grasp.bajoacoplamiento.comun.Recibo;
 
 public class Venta {
     private String id;
     private double monto;
     private Pago pago;
-    private EstadoVenta estado = EstadoVenta.ABIERTA;
+    private boolean pagada;
 
     public Venta(String id, double monto) {
         this.id = id;
         this.monto = monto;
     }
 
-    public Recibo pagar(double monto, String tarjeta) {
-        if (estado != EstadoVenta.ABIERTA) {
-            throw new IllegalStateException("La venta ya estaba cerrada");
-        }
+    // La venta se cobra sola: ya conocia a Pago.
+    public Recibo pagar(String tarjeta) {
         this.pago = Pago.conTarjeta(monto, tarjeta);
-        this.estado = EstadoVenta.PAGADA;
+        this.pagada = true;
         return new Recibo(id, monto, pago.getAutorizacion());
     }
 
-    public String getId()          { return id; }
-    public double getMonto()       { return monto; }
-    public EstadoVenta getEstado() { return estado; }
+    public boolean estaPagada() { return pagada; }
 }

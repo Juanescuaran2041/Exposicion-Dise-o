@@ -9,19 +9,12 @@ public class Carrito {
         lineas.add(linea);
     }
 
+    // El total lo sabe el carrito: el tiene las lineas.
     public double total() {
         double total = 0;
         for (Linea linea : lineas) {
             total = total + linea.subtotal();
         }
         return total;
-    }
-
-    public int cantidadDeLineas() {
-        return lineas.size();
-    }
-
-    public ArrayList<Linea> getLineas() {
-        return new ArrayList<Linea>(lineas);
     }
 }

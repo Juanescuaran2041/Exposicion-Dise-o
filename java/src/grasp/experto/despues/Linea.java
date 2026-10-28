@@ -3,20 +3,14 @@ package grasp.experto.despues;
 public class Linea {
     private Producto producto;
     private int cantidad;
-    private double descuento;
 
-    public Linea(Producto producto, int cantidad, double descuento) {
+    public Linea(Producto producto, int cantidad) {
         this.producto = producto;
         this.cantidad = cantidad;
-        this.descuento = descuento;
     }
 
+    // El subtotal lo sabe la linea: ella tiene la cantidad.
     public double subtotal() {
-        double bruto = producto.precioConIva() * cantidad;
-        return bruto - (bruto * descuento);
-    }
-
-    public String descripcion() {
-        return cantidad + " x " + producto.getNombre();
+        return producto.precioConIva() * cantidad;
     }
 }

@@ -2,27 +2,21 @@ package grasp.indireccion.despues;
 
 import grasp.indireccion.comun.ApiImpuestos;
 
+// El intermediario: aqui vive todo lo que se sabe de la API.
 public class ServicioImpuestos {
     private ApiImpuestos api;
     private double tasaDeRespaldo;
-    private int vecesQueUsoElRespaldo = 0;
 
     public ServicioImpuestos(ApiImpuestos api, double tasaDeRespaldo) {
         this.api = api;
         this.tasaDeRespaldo = tasaDeRespaldo;
     }
 
-    public double calcular(String pais, double base, String tipoDocumento) {
-        long centavos = api.calcularEnCentavos(pais, Math.round(base * 100), tipoDocumento);
-
+    public double calcular(double base) {
+        long centavos = api.calcularEnCentavos(Math.round(base * 100));
         if (centavos == -1) {
-            vecesQueUsoElRespaldo++;
             return base * tasaDeRespaldo;
         }
         return centavos / 100.0;
-    }
-
-    public int getVecesQueUsoElRespaldo() {
-        return vecesQueUsoElRespaldo;
     }
 }

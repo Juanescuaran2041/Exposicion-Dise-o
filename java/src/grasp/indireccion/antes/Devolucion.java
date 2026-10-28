@@ -11,8 +11,7 @@ public class Devolucion {
 
     public double impuesto() {
         ApiImpuestos api = new ApiImpuestos("CLAVE-123");
-        long centavos = api.calcularEnCentavos("CO", Math.round(subtotal * 100), "DEVOLUCION");
-
-        return centavos / 100.0;        // sin plan B
+        long centavos = api.calcularEnCentavos(Math.round(subtotal * 100));
+        return centavos / 100.0;        // copiadas, y sin el plan B
     }
 }

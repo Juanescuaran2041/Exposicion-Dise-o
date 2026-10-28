@@ -7,11 +7,9 @@ public class Demo {
     public static void main(String[] args) {
         System.out.println("=== 4. BAJO ACOPLAMIENTO ===");
         System.out.println();
-
         DemoAntes.ejecutar();
         DemoDespues.ejecutar();
-
-        System.out.println("Clases que conoce Caja:  antes 5  ->  despues 2");
+        System.out.println("Clases que conoce Caja:  antes 4  ->  despues 2");
         System.out.println();
     }
 }

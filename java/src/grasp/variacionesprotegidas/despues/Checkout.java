@@ -11,7 +11,7 @@ public class Checkout {
     }
 
     public Recibo pagar(Pedido pedido) {
-        Cobro cobro = pasarela.cobrar(pedido.getTotal(), "COP");
-        return new Recibo(cobro.getReferencia(), cobro.getMonto(), cobro.getPasarela());
+        Cobro cobro = pasarela.cobrar(pedido.getTotal());
+        return new Recibo(cobro.getReferencia(), cobro.getMonto());
     }
 }

@@ -4,27 +4,19 @@ import grasp.indireccion.comun.ApiImpuestos;
 
 public class DemoAntes {
     public static void ejecutar() {
-        double base = 1000000;
-
+        System.out.println("ANTES");
         ApiImpuestos.servicioCaido = false;
-        ApiImpuestos.reiniciarContador();
+        System.out.printf("  factura    = $%,.0f%n", new Factura(100000).impuesto());
 
-        System.out.println("ANTES  (3 clases atadas a la API externa)");
-        System.out.println("  API funcionando:");
-        System.out.printf("    Factura    = $%,.0f%n", new Factura(base).impuesto());
-        System.out.printf("    Cotizacion = $%,.0f%n", new Cotizacion(base).impuesto());
-        System.out.printf("    Devolucion = $%,.0f%n", new Devolucion(base).impuesto());
-
-        ApiImpuestos.servicioCaido = true;
-        System.out.println("  API caida:");
-        System.out.printf("    Factura    = $%,.0f   (su copia si tenia plan B)%n",
-                new Factura(base).impuesto());
-        System.out.printf("    Cotizacion = $%,.0f   (su copia si tenia plan B)%n",
-                new Cotizacion(base).impuesto());
-        System.out.printf("    Devolucion = $%,.2f   <- ERROR: sin plan B, el -1 de la API%n",
-                new Devolucion(base).impuesto());
-        System.out.println("                            se convirtio en un impuesto absurdo");
-        System.out.println("  tres copias del mismo codigo = tres errores distintos esperando.");
+        ApiImpuestos.servicioCaido = true;      // se cae el servicio
+        System.out.printf("  factura    = $%,.0f  (uso el plan B)%n",
+                new Factura(100000).impuesto());
+        System.out.printf("  cotizacion = $%,.0f  (uso el plan B)%n",
+                new Cotizacion(100000).impuesto());
+        System.out.printf("  devolucion = $%,.2f  (se quedo sin plan B)%n",
+                new Devolucion(100000).impuesto());
+        ApiImpuestos.servicioCaido = false;
+        System.out.println("  Tres clases atadas a la API: tres copias del mismo codigo.");
         System.out.println();
     }
 }

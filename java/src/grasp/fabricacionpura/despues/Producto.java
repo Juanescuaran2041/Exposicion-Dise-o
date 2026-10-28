@@ -2,12 +2,10 @@ package grasp.fabricacionpura.despues;
 
 public class Producto {
     private String sku;
-    private String nombre;
     private double precio;
 
-    public Producto(String sku, String nombre, double precio) {
+    public Producto(String sku, double precio) {
         this.sku = sku;
-        this.nombre = nombre;
         this.precio = precio;
     }
 
@@ -16,6 +14,5 @@ public class Producto {
     }
 
     public String getSku()    { return sku; }
-    public String getNombre() { return nombre; }
     public double getPrecio() { return precio; }
 }

@@ -4,13 +4,12 @@ import grasp.variacionesprotegidas.comun.Pedido;
 
 public class DemoAntes {
     public static void ejecutar() {
-        Pedido pedido = new Pedido("PED-77", 350000);
         Checkout checkout = new Checkout();
 
         System.out.println("ANTES");
-        System.out.println("  " + checkout.pagar(pedido));
-        System.out.println("  cobro en USD porque PayPal se configuro dentro de Checkout.");
-        System.out.println("  ¿cambiar a Stripe? -> reescribir Checkout y sus pruebas.");
+        System.out.println("  " + checkout.pagar(new Pedido(240000)));
+        System.out.println("  Checkout habla el idioma de PayPal: su SDK y su estado.");
+        System.out.println("  Cambiar de pasarela = reescribir Checkout.");
         System.out.println();
     }
 }

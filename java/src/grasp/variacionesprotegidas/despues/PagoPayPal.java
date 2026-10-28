@@ -3,23 +3,15 @@ package grasp.variacionesprotegidas.despues;
 import grasp.variacionesprotegidas.comun.PayPalPago;
 import grasp.variacionesprotegidas.comun.PayPalSDK;
 
+// Lo unico que sabe de PayPal en todo el sistema.
 public class PagoPayPal implements PasarelaPago {
-    private PayPalSDK sdk;
+    private PayPalSDK sdk = new PayPalSDK();
 
-    public PagoPayPal(String idComercio) {
-        this.sdk = new PayPalSDK(idComercio);
-    }
-
-    public Cobro cobrar(double monto, String moneda) {
-        PayPalPago pago = sdk.createPayment(monto, moneda);
-
+    public Cobro cobrar(double monto) {
+        PayPalPago pago = sdk.createPayment(monto);
         if (!pago.getEstado().equals("APPROVED")) {
-            throw new PagoRechazado("PayPal: " + pago.getCodigoError());
+            throw new IllegalStateException("PayPal rechazo el pago");
         }
-        return new Cobro(pago.getId(), pago.getMonto(), nombre());
-    }
-
-    public String nombre() {
-        return "PayPal";
+        return new Cobro(pago.getId(), pago.getMonto());
     }
 }
