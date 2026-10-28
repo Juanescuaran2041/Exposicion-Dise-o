@@ -129,10 +129,10 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .slide.after .toggle .pill { transform: translateX(100%); background: var(--good); }
 .slide:not(.after) .toggle .b-before, .slide.after .toggle .b-after { color: #0b0d14; }
 
-.ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 9px 0 8px; }
-.idea { display: flex; gap: 11px; align-items: center; padding: 6px 13px; border-radius: 13px; background: var(--surface); border: 1px solid var(--rule); }
+.ideas { display: grid; grid-template-columns: 1.55fr 1fr; gap: 12px; margin: 9px 0 8px; align-items: stretch; }
+.idea { display: flex; gap: 11px; align-items: flex-start; padding: 10px 14px; border-radius: 13px; background: var(--surface); border: 1px solid var(--rule); }
 .idea .tag { flex: none; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .12em; padding: 5px 9px; border-radius: 7px; background: color-mix(in srgb, var(--p) 18%, transparent); color: var(--p); }
-.idea p { margin: 0; font-size: 15px; line-height: 1.3; }
+.idea p { margin: 0; font-size: 14.5px; line-height: 1.42; }
 
 .work { display: grid; grid-template-columns: 480px 1fr; gap: 14px; flex: 1; min-height: 0; }
 .pane { border-radius: 16px; border: 1px solid var(--rule); overflow: hidden; display: flex; flex-direction: column; min-height: 0; position: relative; }
@@ -181,7 +181,6 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .p-head .p-step + .toggle { margin-left: 0; }
 .work.solo { grid-template-columns: 1fr; }
 .work.split { grid-template-columns: var(--cw, 640px) 1fr; }
-.p-code .work { margin-top: 10px; }
 .p-code .work { align-items: center; }
 .p-code .code-pane { max-height: 100%; }
 .p-code .code { font-size: 13px; padding: 12px 0; }
@@ -250,29 +249,6 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .mk-good { fill: var(--good); stroke: var(--good); }
 .uml .hollow { fill: var(--box); }
 
-/* ===== quiz ===== */
-.quiz { display: grid; grid-template-columns: 1fr 1.15fr; gap: 26px; flex: 1; margin-top: 22px; min-height: 0; }
-.q-scene { display: flex; flex-direction: column; gap: 18px; }
-.q-card { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 30px; border-radius: 20px; background: var(--surface); border: 1px solid var(--rule); position: relative; overflow: hidden; }
-.q-card .q-n { font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
-.q-card .q-ico { font-size: 54px; line-height: 1; }
-.q-card .q-text { font-family: var(--f-display); font-size: 27px; font-weight: 600; line-height: 1.3; }
-.q-score { display: flex; gap: 8px; }
-.q-score i { flex: 1; height: 8px; border-radius: 99px; background: var(--rule); transition: background .3s; }
-.q-score i.ok { background: var(--good); } .q-score i.ko { background: var(--bad); } .q-score i.cur { background: var(--p); }
-.q-opts { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 14px; flex: 1; }
-.q-opt { --c: var(--p); border: 1px solid var(--rule); background: var(--surface); border-radius: 16px; padding: 20px; justify-content: space-between; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 8px; transition: transform .2s, border-color .2s, background .2s; min-height: 92px; }
-.q-opt:hover:not(:disabled) { transform: translateY(-3px); border-color: var(--c); }
-.q-opt .n { width: 40px; height: 40px; font-size: 16px !important; border-radius: 9px; display: grid; place-items: center; background: var(--c); color: #0b0d14; font-family: var(--f-display); font-weight: 800; font-size: 13px; }
-.q-opt span { font-weight: 700; font-size: 20px; font-family: var(--f-display); line-height: 1.2; }
-.q-opt.ok { border-color: var(--good); background: color-mix(in srgb, var(--good) 16%, var(--surface)); }
-.q-opt.ko { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, var(--surface)); animation: shake .4s; }
-.q-opt:disabled { cursor: default; }
-@keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-.q-feedback { min-height: 64px; display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); font-size: 16px; grid-column: 1 / -1; }
-.q-feedback .q-next { margin-left: auto; border: 0; background: var(--p); color: #0b0d14; font-weight: 700; padding: 10px 18px; border-radius: 10px; cursor: pointer; flex: none; }
-.q-feedback .q-next[hidden] { display: none; }
-
 /* ===== cierre ===== */
 .end-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 14px; margin: 26px 0; flex: 1; max-height: 330px; }
 .end-item { --c: var(--p); display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 14px; background: var(--surface); border-left: 4px solid var(--c); }
@@ -295,7 +271,7 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
   .orbit { display: none; }
   .authors { position: static; margin-top: 30px; flex-wrap: wrap; }
   .big-q { font-size: 34px; }
-  .trio, .map-grid, .ideas, .work, .quiz, .q-opts, .end-grid, .takeaways { grid-template-columns: 1fr; }
+  .trio, .map-grid, .ideas, .work, .end-grid, .takeaways { grid-template-columns: 1fr; }
   .work.solo, .work.split { grid-template-columns: 1fr; }
   .p-code .code { font-size: 12.5px !important; }
   .p-head .p-step { margin-left: 0; }
@@ -305,15 +281,13 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
   .toggle { margin-left: 0; width: 100%; }
   .toggle button { flex: 1; justify-content: center; }
   .work { gap: 14px; }
-  .diag-wrap { height: 330px; }
+  .diag-wrap { flex: none; height: 330px; }
   .legend { display: none; }
-  .q-opts { grid-auto-rows: auto; }
   .end-grid { max-height: none; }
   .code { max-height: 420px; }
   .verdict { flex-wrap: wrap; }
   .kpi { border-left: 0; padding-left: 0; width: 100%; }
   .kbd-hint { display: none; }
-  .q-opts { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -362,30 +336,10 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
       <div class="map-grid" id="mapGrid"></div>
     </section>
 
-    <!-- 4..12 · patrones (se generan con JS) -->
+    <!-- 4..21 · patrones: dos láminas por patrón (se generan con JS) -->
     <div id="patternMount" style="display:contents"></div>
 
-    <!-- 13 · quiz -->
-    <section class="slide" data-color="#ffb347" aria-label="Reto">
-      <div class="eyebrow">Reto rápido</div>
-      <h2 style="font-size:40px;margin-top:10px">¿Qué patrón aplica?</h2>
-      <div class="quiz">
-        <div class="q-scene">
-          <div class="q-card">
-            <div class="q-n" id="qN"></div>
-            <div class="q-ico" id="qIco" aria-hidden="true"></div>
-            <div class="q-text" id="qText"></div>
-          </div>
-          <div class="q-score" id="qScore"></div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
-          <div class="q-opts" id="qOpts"></div>
-          <div class="q-feedback" id="qFb"><span id="qFbText" style="color:var(--muted)">Elige una opción.</span><button class="q-next" id="qNext" hidden>Siguiente →</button></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 14 · cierre -->
+    <!-- 22 · cierre -->
     <section class="slide" data-color="#3ee0a1" aria-label="Cierre">
       <div class="eyebrow">Para recordar</div>
       <h2 style="font-size:40px;margin-top:10px">Cada patrón en una frase</h2>
@@ -403,7 +357,7 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 <nav class="bar" aria-label="Navegación">
   <button class="btn" id="prev" aria-label="Anterior"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
   <button class="btn" id="next" aria-label="Siguiente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
-  <span class="count" id="count">1 / 23</span>
+  <span class="count" id="count">1 / 22</span>
   <div class="dots" id="dots"></div>
   <span class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> navegar · <kbd>Espacio</kbd> antes/después · <kbd>F</kbd> pantalla completa</span>
   <button class="btn" id="theme" aria-label="Cambiar tema"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
@@ -430,8 +384,8 @@ const PATTERNS = [
 {
   id: "experto", n: "01", name: "Experto en Información", en: "Information Expert", color: "#ff7a6b",
   one: "Hace la tarea quien tiene los datos",
-  que: "La responsabilidad va a la clase que tiene la información para cumplirla.",
-  porque: "La lógica vive junto a sus datos; nadie hurga en objetos ajenos.",
+  que: "La responsabilidad se le da a la clase que tiene la información necesaria para cumplirla. Para saber quién hace algo, se mira primero qué datos hacen falta y quién los tiene. Si el cálculo toca varios objetos, cada uno aporta su parte y el total sube.",
+  porque: "La lógica vive junto a sus datos: nadie hurga en objetos ajenos y los getters dejan de ser una invitación a calcular por fuera.",
   vBefore: "ServicioCaja abre Carrito, Línea y Producto, y calcula él mismo el IVA.",
   vAfter: "Cada objeto calcula lo suyo: Producto el IVA, Línea su subtotal, Carrito el total.",
   kpi: ["Clases que conoce ServicioCaja", "3", "1"],
@@ -499,8 +453,8 @@ class Producto {
 {
   id: "creador", n: "02", name: "Creador", en: "Creator", color: "#ffb347",
   one: "Crea A quien contiene o inicializa a A",
-  que: "B crea objetos A si B contiene, agrega o tiene los datos para inicializar a A.",
-  porque: "La creación queda en un lugar lógico y nadie más se acopla a A.",
+  que: "B crea los objetos A cuando B los contiene o agrega, los usa de cerca o tiene los datos con los que A nace. En vez de repartir el new por toda la aplicación, la creación se le encarga a quien ya tenía una razón para conocer a A.",
+  porque: "La creación queda en un lugar lógico, el objeto nace completo y el resto del sistema no se acopla a A ni a su constructor.",
   vBefore: "La pantalla crea la línea y la mete en la lista interna del pedido.",
   vAfter: "El pedido crea sus propias líneas. La pantalla solo pide.",
   kpi: ["Quién hace new LineaPedido", "la pantalla", "Pedido"],
@@ -560,8 +514,8 @@ class Pedido {
 {
   id: "controlador", n: "03", name: "Controlador", en: "Controller", color: "#f7e05a",
   one: "Un coordinador recibe los eventos del sistema",
-  que: "Un objeto que no es UI recibe la operación del sistema y coordina a los demás.",
-  porque: "La interfaz no carga reglas de negocio; se puede cambiar sin tocar la lógica.",
+  que: "El primer objeto que recibe una operación del sistema no es la pantalla, sino un controlador: una clase que representa el caso de uso completo. Coordina a los demás y decide el orden, pero el trabajo real lo delega en los expertos.",
+  porque: "La interfaz no carga reglas de negocio: el caso de uso se prueba e invoca sin pantalla, y la UI se cambia sin tocar la lógica.",
   vBefore: "El botón reserva, cobra y hasta deshace la reserva si el pago falla.",
   vAfter: "El botón delega y pinta; el controlador coordina. El caso de uso ya se invoca sin pantalla.",
   kpi: ["Servicios que conoce la pantalla", "2", "1"],
@@ -628,8 +582,8 @@ class Pedido {
 {
   id: "acoplamiento", n: "04", name: "Bajo Acoplamiento", en: "Low Coupling", color: "#5be38f",
   one: "Depender de pocas clases",
-  que: "Asigna responsabilidades para que cada clase dependa de la menor cantidad de otras.",
-  porque: "Un cambio no se propaga en cadena; las clases se reutilizan y prueban solas.",
+  que: "Entre varias formas de repartir una responsabilidad, se elige la que deje a cada clase dependiendo de menos clases. Acoplamiento es cuánto sabe una clase de las otras; antes de crear una dependencia nueva conviene ver si alguien que ya la tenía puede encargarse.",
+  porque: "Un cambio no se propaga en cadena y las clases se entienden, se prueban y se reutilizan por separado.",
   vBefore: "Caja crea el pago, lo autoriza y cambia el estado de la venta: conoce cuatro clases.",
   vAfter: "Caja le pide a Venta que cobre. Venta ya conocía a Pago: ni una dependencia nueva.",
   kpi: ["Clases que conoce Caja", "4", "2"],
@@ -701,8 +655,8 @@ class Venta {
 {
   id: "cohesion", n: "05", name: "Alta Cohesión", en: "High Cohesion", color: "#3fd3e0",
   one: "Cada clase, un propósito",
-  que: "Mantén cada clase enfocada en responsabilidades relacionadas entre sí.",
-  porque: "Clases pequeñas: fáciles de entender, probar y reutilizar.",
+  que: "Cada clase se mantiene enfocada en responsabilidades relacionadas entre sí. Si para describirla hay que encadenar varios y (guarda en la base y manda correos y calcula descuentos), la clase está haciendo de todo y toca partirla en varias.",
+  porque: "Clases pequeñas y enfocadas: se entienden de una lectura, se prueban solas y tienen una única razón para cambiar.",
   vBefore: "Usuario guarda en la base, manda correos, arma reportes y calcula descuentos: cinco temas.",
   vAfter: "Usuario solo habla del usuario; cada tarea técnica tiene su propia clase.",
   kpi: ["Propósitos de Usuario", "5", "1"],
@@ -760,8 +714,8 @@ class Venta {
 {
   id: "polimorfismo", n: "06", name: "Polimorfismo", en: "Polymorphism", color: "#6f8cff",
   one: "Mismo mensaje, distinto comportamiento",
-  que: "Cuando el comportamiento varía según el tipo, cada tipo implementa la operación.",
-  porque: "Adiós a if/switch por tipo; un caso nuevo no edita código existente.",
+  que: "Cuando el comportamiento cambia según el tipo, la responsabilidad se le asigna a cada tipo con una operación que todos declaran igual. En vez de preguntar de qué tipo es algo con un if o un switch, se manda el mismo mensaje y cada clase responde a su manera.",
+  porque: "Un caso nuevo se agrega escribiendo una clase, sin editar el código que ya funciona ni olvidar un switch por ahí.",
   vBefore: "Dos switch sobre el mismo String: un tipo nuevo obliga a editar los dos.",
   vAfter: "Cada envío sabe su costo y sus días. El tipo nuevo solo se agrega.",
   kpi: ["Para un tipo nuevo", "editar 2 switch", "+1 clase"],
@@ -821,8 +775,8 @@ class EnvioInternacional implements Envio { ... }
 {
   id: "fabricacion", n: "07", name: "Fabricación Pura", en: "Pure Fabrication", color: "#b07bff",
   one: "Inventar una clase técnica",
-  que: "Inventa una clase que no existe en el negocio para encargarse de una tarea técnica.",
-  porque: "El dominio queda limpio y cohesivo; lo técnico se reutiliza aparte.",
+  que: "Cuando ninguna clase del negocio es un buen lugar para una responsabilidad, se inventa una que no existe en el dominio y se le asigna a ella: repositorios, validadores, conversores. Son clases creadas por conveniencia del diseño, no porque el cliente las nombre.",
+  porque: "El dominio queda limpio y cohesivo, y la tarea técnica se reutiliza y se prueba aparte del negocio.",
   vBefore: "Producto arma el SQL y carga con la base de datos: el negocio sabe de tablas.",
   vAfter: "RepositorioProductos (inventado) guarda y elimina. Producto vuelve a ser solo negocio.",
   kpi: ["¿Producto sabe de SQL?", "Sí", "No"],
@@ -881,8 +835,8 @@ class EnvioInternacional implements Envio { ... }
 {
   id: "indireccion", n: "08", name: "Indirección", en: "Indirection", color: "#ff6fc1",
   one: "Poner un intermediario",
-  que: "Asigna la responsabilidad a un objeto intermedio entre dos partes.",
-  porque: "Las partes no se conocen directamente; el detalle externo queda en un solo lugar.",
+  que: "Para que dos partes no queden pegadas, se mete un objeto intermedio que habla con las dos y carga con esa responsabilidad. El intermediario concentra el detalle incómodo (una API externa, un formato, un protocolo) en un solo lugar.",
+  porque: "Las partes no se conocen entre sí: lo que cambie de un lado se arregla una sola vez, dentro del intermediario.",
   vBefore: "Tres clases llaman directo a la API: tres copias del mismo código, y a una se le olvidó el respaldo.",
   vAfter: "ServicioImpuestos media: la clave, los centavos y el respaldo viven en un solo lugar.",
   kpi: ["Clases atadas a la API", "3", "1"],
@@ -950,8 +904,8 @@ class Factura {
 {
   id: "variaciones", n: "09", name: "Variaciones Protegidas", en: "Protected Variations", color: "#ff9f5a",
   one: "Aislar lo que puede cambiar",
-  que: "Identifica qué puede cambiar y envuélvelo tras una interfaz estable.",
-  porque: "El cambio llega, pero no rompe al resto del sistema.",
+  que: "Se identifica qué puede cambiar (un proveedor, un formato, una regla) y se envuelve detrás de una interfaz estable. El resto del sistema solo habla con esa interfaz, así que la variación queda encerrada y el cambio no se filtra hacia afuera.",
+  porque: "El cambio llega igual, pero se absorbe agregando una implementación nueva en vez de reescribir a quienes la usan.",
   vBefore: "Checkout habla el idioma de PayPal: su SDK, su tipo y su estado.",
   vAfter: "Checkout usa PasarelaPago, con nuestro vocabulario. ¿Nequi mañana? Una clase nueva.",
   kpi: ["Si cambia la pasarela, se reescribe", "Checkout", "nada"],
@@ -1023,15 +977,6 @@ class Checkout {
   }
 
 }
-];
-
-const QUIZ = [
-  { ico: "🩺", text: "Paciente guarda su fecha de nacimiento. ¿Quién debe calcular su edad?", ok: "experto", opts: ["experto", "controlador", "fabricacion", "indireccion"], why: "Paciente tiene el dato: es el experto." },
-  { ico: "♟️", text: "Una Partida de ajedrez contiene sus Movimientos. ¿Quién crea cada Movimiento?", ok: "creador", opts: ["polimorfismo", "creador", "acoplamiento", "variaciones"], why: "Partida contiene los movimientos: es su creador." },
-  { ico: "🖥️", text: "El formulario de login valida la clave, consulta la BD y registra auditoría.", ok: "controlador", opts: ["cohesion", "indireccion", "controlador", "creador"], why: "La UI debe delegar en un controlador que coordine el caso de uso." },
-  { ico: "🔀", text: "Un método con un switch por tipo de suscripción que crece cada mes.", ok: "polimorfismo", opts: ["experto", "fabricacion", "variaciones", "polimorfismo"], why: "Cada tipo de suscripción implementa su propio comportamiento." },
-  { ico: "🗄️", text: "Hay que guardar Facturas en la base de datos sin ensuciar la clase Factura.", ok: "fabricacion", opts: ["fabricacion", "creador", "controlador", "experto"], why: "Un RepositorioFacturas inventado se encarga de la persistencia." },
-  { ico: "📲", text: "La empresa cambiará de proveedor de SMS el próximo año.", ok: "variaciones", opts: ["acoplamiento", "variaciones", "cohesion", "polimorfismo"], why: "Se protege el punto de cambio con una interfaz estable Notificador." }
 ];
 
 /* ===================== utilidades ===================== */
@@ -1216,6 +1161,11 @@ PATTERNS.forEach(p => {
         <button class="b-after" aria-pressed="false">${ICON_OK} Después</button>
       </div>
     </div>`;
+  const ideas = `
+    <div class="ideas">
+      <div class="idea"><span class="tag">QUÉ</span><p>${p.que}</p></div>
+      <div class="idea"><span class="tag">POR QUÉ</span><p>${p.porque}</p></div>
+    </div>`;
   const lamina = (cls, label, html) => {
     const s = document.createElement("section");
     s.className = "slide pattern " + cls;
@@ -1231,11 +1181,7 @@ PATTERNS.forEach(p => {
   };
 
   /* lámina 1 · solo el diagrama de clases */
-  lamina("p-diag", p.name + " · diagrama", head("diagrama") + `
-    <div class="ideas">
-      <div class="idea"><span class="tag">QUÉ</span><p>${p.que}</p></div>
-      <div class="idea"><span class="tag">POR QUÉ</span><p>${p.porque}</p></div>
-    </div>
+  lamina("p-diag", p.name + " · diagrama", head("diagrama") + ideas + `
     <div class="work solo">
       <div class="pane diag-pane">
         <div class="pane-head"><span class="fname">diagrama de clases</span><span class="state"></span><div class="legend">${LEGEND}</div></div>
@@ -1249,7 +1195,7 @@ PATTERNS.forEach(p => {
     </div>`);
 
   /* lámina 2 · solo el código java */
-  lamina("p-code", p.name + " · código", head("código") + `
+  lamina("p-code", p.name + " · código", head("código") + ideas + `
     <div class="work split">
       <div class="pane code-pane">
         <div class="pane-head"><i></i><i></i><i></i><span class="fname"></span><span class="state"></span></div>
@@ -1264,7 +1210,6 @@ PATTERNS.forEach(p => {
           <span class="kl">${p.kpi[0]}</span>
           <div class="kpi"><span class="kv k-before">${p.kpi[1]}</span><span>→</span><span class="kv k-after">${p.kpi[2]}</span></div>
         </div>
-        <div class="note-card idea"><span class="tag">IDEA</span><p>${p.one}</p></div>
         <div class="note-card marks">
           <b>Cómo leer el código</b>
           <div class="mark m-bad"><i></i>la línea marcada es el problema</div>
@@ -1296,7 +1241,7 @@ function setState(s, after, silent) {
     /* el código es lo único en la lámina: se agranda hasta llenarla */
     const lineas = src.split("\n");
     const cols = Math.max(...lineas.map(l => /^[!+]/.test(l) ? l.length : l.length + 1));
-    const fs = Math.max(12, Math.min(19, 540 / (lineas.length * 1.5), 1000 / (cols * 0.6)));
+    const fs = Math.max(12, Math.min(19, 458 / (lineas.length * 1.5), 1000 / (cols * 0.6)));
     codeEl.style.fontSize = fs.toFixed(1) + "px";
     s.style.setProperty("--cw", Math.round(Math.max(440, Math.min(790, cols * 0.6 * fs + 46))) + "px");
   }
@@ -1322,43 +1267,6 @@ PATTERNS.forEach((p, i) => {
   orbitHTML += `<div class="chip" style="left:${200 + 200 * Math.cos(a)}px;top:${200 + 200 * Math.sin(a)}px;background:${p.color}">${p.n}</div>`;
 });
 orbit.innerHTML = orbitHTML + `</div><div class="core"><div>GRASP<small>¿quién hace qué?</small></div></div>`;
-
-/* ===================== quiz ===================== */
-let qi = 0, qRes = [];
-function renderQuiz() {
-  const q = QUIZ[qi];
-  $("#qN").textContent = `Caso ${qi + 1} de ${QUIZ.length}`;
-  $("#qIco").textContent = q.ico;
-  $("#qText").textContent = q.text;
-  $("#qScore").innerHTML = QUIZ.map((_, i) => `<i class="${qRes[i] === true ? "ok" : qRes[i] === false ? "ko" : i === qi ? "cur" : ""}"></i>`).join("");
-  const box = $("#qOpts"); box.innerHTML = "";
-  q.opts.forEach(id => {
-    const p = byId[id], b = document.createElement("button");
-    b.className = "q-opt"; b.style.setProperty("--c", p.color);
-    b.innerHTML = `<div class="n">${p.n}</div><span>${p.name}</span>`;
-    b.onclick = () => answer(id, b);
-    box.appendChild(b);
-  });
-  $("#qFbText").textContent = "Elige una opción."; $("#qFbText").style.color = "var(--muted)";
-  $("#qNext").hidden = true;
-}
-function answer(id, btn) {
-  const q = QUIZ[qi], ok = id === q.ok;
-  qRes[qi] = ok;
-  document.querySelectorAll(".q-opt").forEach(b => b.disabled = true);
-  btn.classList.add(ok ? "ok" : "ko");
-  if (!ok) [...document.querySelectorAll(".q-opt")][q.opts.indexOf(q.ok)].classList.add("ok");
-  $("#qFbText").innerHTML = `<b style="color:${ok ? "var(--good)" : "var(--bad)"}">${ok ? "¡Correcto!" : "Casi."}</b> ${esc(q.why)}`;
-  $("#qFbText").style.color = "var(--ink)";
-  const nx = $("#qNext"); nx.hidden = false;
-  if (qi === QUIZ.length - 1) {
-    const score = qRes.filter(Boolean).length;
-    nx.textContent = `${score}/${QUIZ.length} · Reiniciar ↺`;
-  } else nx.textContent = "Siguiente →";
-  $("#qScore").innerHTML = QUIZ.map((_, i) => `<i class="${qRes[i] === true ? "ok" : qRes[i] === false ? "ko" : i === qi ? "cur" : ""}"></i>`).join("");
-}
-$("#qNext").onclick = () => { if (qi === QUIZ.length - 1) { qi = 0; qRes = []; } else qi++; renderQuiz(); };
-renderQuiz();
 
 /* ===================== navegación ===================== */
 const slides = [...document.querySelectorAll(".slide")];
