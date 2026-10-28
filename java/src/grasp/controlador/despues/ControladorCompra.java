@@ -1,7 +1,5 @@
 package grasp.controlador.despues;
 
-import grasp.controlador.comun.Carrito;
-import grasp.controlador.comun.Cliente;
 import grasp.controlador.comun.Inventario;
 import grasp.controlador.comun.PasarelaPago;
 import grasp.controlador.comun.Pedido;
@@ -20,13 +18,13 @@ public class ControladorCompra {
     }
 
     // Devuelve el pedido, o null si la compra no se pudo completar.
-    public Pedido confirmarCompra(Carrito carrito, Cliente cliente) {
-        if (!inventario.reservar(carrito)) {
+    public Pedido confirmarCompra(int unidades, double total, String tarjeta) {
+        if (!inventario.reservar(unidades)) {
             return null;
         }
-        Pedido pedido = new Pedido(cliente, carrito.getTotal());
-        if (!pasarela.cobrar(cliente.getTarjeta(), pedido.getTotal())) {
-            inventario.liberar(carrito);          // la correccion vive aqui
+        Pedido pedido = new Pedido(total);
+        if (!pasarela.cobrar(tarjeta, pedido.getTotal())) {
+            inventario.liberar(unidades);         // la correccion vive aqui
             return null;
         }
         pedidos.guardar(pedido);

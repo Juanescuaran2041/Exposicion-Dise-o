@@ -1,7 +1,5 @@
 package grasp.controlador.antes;
 
-import grasp.controlador.comun.Carrito;
-import grasp.controlador.comun.Cliente;
 import grasp.controlador.comun.Inventario;
 import grasp.controlador.comun.PasarelaPago;
 import grasp.controlador.comun.Pedido;
@@ -20,14 +18,14 @@ public class BotonPagar {
     }
 
     // La interfaz hace todo el caso de uso.
-    public void alHacerClic(Carrito carrito, Cliente cliente) {
-        if (!inventario.reservar(carrito)) {
+    public void alHacerClic(int unidades, double total, String tarjeta) {
+        if (!inventario.reservar(unidades)) {
             mostrarError("Sin stock");
             return;
         }
-        Pedido pedido = new Pedido(cliente, carrito.getTotal());
-        if (!pasarela.cobrar(cliente.getTarjeta(), pedido.getTotal())) {
-            inventario.liberar(carrito);          // la interfaz corrigiendo
+        Pedido pedido = new Pedido(total);
+        if (!pasarela.cobrar(tarjeta, pedido.getTotal())) {
+            inventario.liberar(unidades);         // la interfaz corrigiendo
             mostrarError("Pago rechazado");
             return;
         }
@@ -40,7 +38,6 @@ public class BotonPagar {
     }
 
     private void mostrarRecibo(Pedido pedido) {
-        System.out.printf("    [pantalla] OK: compra de %s por $%,.0f%n",
-                pedido.getCliente().getNombre(), pedido.getTotal());
+        System.out.printf("    [pantalla] OK: compra por $%,.0f%n", pedido.getTotal());
     }
 }

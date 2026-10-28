@@ -1,14 +1,11 @@
 package grasp.controlador.comun;
 
 public class Pedido {
-    private Cliente cliente;
     private double total;
 
-    public Pedido(Cliente cliente, double total) {
-        this.cliente = cliente;
+    public Pedido(double total) {
         this.total = total;
     }
 
-    public Cliente getCliente() { return cliente; }
-    public double getTotal()    { return total; }
+    public double getTotal() { return total; }
 }

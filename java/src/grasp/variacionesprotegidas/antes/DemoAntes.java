@@ -7,7 +7,7 @@ public class DemoAntes {
         Checkout checkout = new Checkout();
 
         System.out.println("ANTES");
-        System.out.println("  " + checkout.pagar(new Pedido(240000)));
+        System.out.println("  referencia = " + checkout.pagar(new Pedido(240000)));
         System.out.println("  Checkout habla el idioma de PayPal: su SDK y su estado.");
         System.out.println("  Cambiar de pasarela = reescribir Checkout.");
         System.out.println();

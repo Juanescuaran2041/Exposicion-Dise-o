@@ -7,16 +7,16 @@ public class Inventario {
         this.disponibles = disponibles;
     }
 
-    public boolean reservar(Carrito carrito) {
-        if (carrito.getUnidades() > disponibles) {
+    public boolean reservar(int unidades) {
+        if (unidades > disponibles) {
             return false;
         }
-        disponibles = disponibles - carrito.getUnidades();
+        disponibles = disponibles - unidades;
         return true;
     }
 
-    public void liberar(Carrito carrito) {
-        disponibles = disponibles + carrito.getUnidades();
+    public void liberar(int unidades) {
+        disponibles = disponibles + unidades;
     }
 
     public int getDisponibles() { return disponibles; }

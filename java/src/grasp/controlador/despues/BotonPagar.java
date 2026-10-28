@@ -1,7 +1,5 @@
 package grasp.controlador.despues;
 
-import grasp.controlador.comun.Carrito;
-import grasp.controlador.comun.Cliente;
 import grasp.controlador.comun.Pedido;
 
 public class BotonPagar {
@@ -12,8 +10,8 @@ public class BotonPagar {
     }
 
     // La interfaz delega y pinta.
-    public void alHacerClic(Carrito carrito, Cliente cliente) {
-        Pedido pedido = controlador.confirmarCompra(carrito, cliente);
+    public void alHacerClic(int unidades, double total, String tarjeta) {
+        Pedido pedido = controlador.confirmarCompra(unidades, total, tarjeta);
         if (pedido != null) {
             mostrarRecibo(pedido);
         } else {
@@ -26,7 +24,6 @@ public class BotonPagar {
     }
 
     private void mostrarRecibo(Pedido pedido) {
-        System.out.printf("    [pantalla] OK: compra de %s por $%,.0f%n",
-                pedido.getCliente().getNombre(), pedido.getTotal());
+        System.out.printf("    [pantalla] OK: compra por $%,.0f%n", pedido.getTotal());
     }
 }
