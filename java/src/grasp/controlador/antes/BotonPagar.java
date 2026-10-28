@@ -1,27 +1,18 @@
 package grasp.controlador.antes;
 
-import grasp.controlador.comun.*;
+import grasp.controlador.comun.Carrito;
+import grasp.controlador.comun.Cliente;
+import grasp.controlador.comun.Inventario;
+import grasp.controlador.comun.Notificador;
+import grasp.controlador.comun.PasarelaPago;
+import grasp.controlador.comun.Pedido;
+import grasp.controlador.comun.RepositorioPedidos;
 
-/**
- * PROBLEMA: el componente de interfaz es el que ejecuta el caso de uso
- * "confirmar compra". Dentro de un manejador de clic hay reglas de negocio,
- * orquestación y compensación de errores.
- *
- * Consecuencias:
- *  - La UI depende de 5 colaboradores (inventario, pedidos, pasarela,
- *    notificador y el propio Pedido).
- *  - Para probar la lógica hay que instanciar la pantalla.
- *  - Si mañana el caso de uso también se expone por API REST o por consola,
- *    todo esto se copia y las dos copias se desincronizan.
- *  - La UI es la que "deshace" la reserva si falla el pago: lógica crítica
- *    escondida en un botón.
- */
 public class BotonPagar {
-
-    private final Inventario inventario;
-    private final PasarelaPago pasarela;
-    private final Notificador notificador;
-    private final RepositorioPedidos pedidos;
+    private Inventario inventario;
+    private PasarelaPago pasarela;
+    private Notificador notificador;
+    private RepositorioPedidos pedidos;
 
     public BotonPagar(Inventario inventario, PasarelaPago pasarela,
                       Notificador notificador, RepositorioPedidos pedidos) {
@@ -40,8 +31,8 @@ public class BotonPagar {
 
         Pedido pedido = Pedido.desde(carrito, cliente);
 
-        if (!pasarela.cobrar(cliente.tarjeta(), pedido.total())) {
-            inventario.liberar(carrito);          // la UI compensando...
+        if (!pasarela.cobrar(cliente.getTarjeta(), pedido.getTotal())) {
+            inventario.liberar(carrito);          // la interfaz corrigiendo
             mostrarError("Pago rechazado");
             return;
         }
@@ -50,11 +41,13 @@ public class BotonPagar {
         mostrarRecibo(pedido);
     }
 
-    // --- cosas que sí son de la UI ---
+    // --- esto si es trabajo de la interfaz ---
     private void mostrarError(String mensaje) {
-        System.out.println("        [pantalla] ERROR: " + mensaje);
+        System.out.println("    [pantalla] ERROR: " + mensaje);
     }
+
     private void mostrarRecibo(Pedido pedido) {
-        System.out.printf("        [pantalla] OK: Recibo %s por $%,.0f%n", pedido.id(), pedido.total());
+        System.out.printf("    [pantalla] OK: Recibo %s por $%,.0f%n",
+                pedido.getId(), pedido.getTotal());
     }
 }

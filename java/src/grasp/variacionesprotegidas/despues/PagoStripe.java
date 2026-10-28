@@ -1,18 +1,17 @@
 package grasp.variacionesprotegidas.despues;
 
-import grasp.variacionesprotegidas.comun.StripeApi;
 
-/** Otro adaptador: Stripe cobra en centavos y lanza excepciones. */
 public class PagoStripe implements PasarelaPago {
-
-    @Override public Cobro cobrar(double monto, String moneda) throws PagoRechazado {
+    public Cobro cobrar(double monto, String moneda) {
         try {
-            String chargeId = StripeApi.charge(Math.round(monto * 100), moneda.toLowerCase());
-            return new Cobro(chargeId, monto, nombre());
-        } catch (RuntimeException e) {
+            String referencia = StripeApi.charge(Math.round(monto * 100), moneda.toLowerCase());
+            return new Cobro(referencia, monto, nombre());
+        } catch (IllegalArgumentException e) {
             throw new PagoRechazado("Stripe: " + e.getMessage());
         }
     }
 
-    @Override public String nombre() { return "Stripe"; }
+    public String nombre() {
+        return "Stripe";
+    }
 }

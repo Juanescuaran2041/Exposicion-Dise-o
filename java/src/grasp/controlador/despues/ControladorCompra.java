@@ -1,21 +1,18 @@
 package grasp.controlador.despues;
 
-import grasp.controlador.comun.*;
+import grasp.controlador.comun.Carrito;
+import grasp.controlador.comun.Cliente;
+import grasp.controlador.comun.Inventario;
+import grasp.controlador.comun.Notificador;
+import grasp.controlador.comun.PasarelaPago;
+import grasp.controlador.comun.Pedido;
+import grasp.controlador.comun.RepositorioPedidos;
 
-/**
- * CONTROLADOR: objeto que NO es de la interfaz y que recibe la operación
- * del sistema ("confirmarCompra"). Su trabajo es coordinar: no calcula
- * totales, no cobra, no envía correos; les pide a los expertos que lo hagan.
- *
- * Es un controlador de caso de uso (uno por caso de uso o por grupo
- * de casos de uso relacionados), no un "controlador de todo".
- */
 public class ControladorCompra {
-
-    private final Inventario inventario;
-    private final PasarelaPago pasarela;
-    private final Notificador notificador;
-    private final RepositorioPedidos pedidos;
+    private Inventario inventario;
+    private PasarelaPago pasarela;
+    private Notificador notificador;
+    private RepositorioPedidos pedidos;
 
     public ControladorCompra(Inventario inventario, PasarelaPago pasarela,
                              Notificador notificador, RepositorioPedidos pedidos) {
@@ -25,15 +22,14 @@ public class ControladorCompra {
         this.pedidos = pedidos;
     }
 
-    /** Operación del sistema: un solo punto de entrada para cualquier UI. */
     public Resultado confirmarCompra(Carrito carrito, Cliente cliente) {
         if (!inventario.reservar(carrito)) {
             return Resultado.error("Sin stock");
         }
         Pedido pedido = Pedido.desde(carrito, cliente);
 
-        if (!pasarela.cobrar(cliente.tarjeta(), pedido.total())) {
-            inventario.liberar(carrito);          // la compensación vive aquí
+        if (!pasarela.cobrar(cliente.getTarjeta(), pedido.getTotal())) {
+            inventario.liberar(carrito);          // la correccion vive aqui
             return Resultado.error("Pago rechazado");
         }
         pedidos.guardar(pedido);

@@ -1,18 +1,28 @@
 package grasp.altacohesion.despues;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
-/** Responsabilidad única: guardar y recuperar usuarios. */
 public class RepositorioUsuarios {
-    private final List<Usuario> almacen = new ArrayList<>();
+    private ArrayList<Usuario> almacen = new ArrayList<Usuario>();
 
-    public void guardar(Usuario u) { almacen.add(u); }
-
-    public Optional<Usuario> porEmail(String email) {
-        return almacen.stream().filter(u -> u.email().equals(email)).findFirst();
+    public void guardar(Usuario usuario) {
+        String sql = "INSERT INTO usuario (nombre, email, clave) VALUES ('"
+                + usuario.getNombre() + "', '" + usuario.getEmail()
+                + "', '" + usuario.getClaveHash() + "')";
+        System.out.println("    [base de datos] " + sql);
+        almacen.add(usuario);
     }
 
-    public List<Usuario> todos() { return List.copyOf(almacen); }
+    public Usuario porEmail(String email) {
+        for (Usuario usuario : almacen) {
+            if (usuario.getEmail().equals(email)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Usuario> todos() {
+        return new ArrayList<Usuario>(almacen);
+    }
 }

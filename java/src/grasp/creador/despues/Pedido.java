@@ -1,43 +1,45 @@
 package grasp.creador.despues;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
-/**
- * CREADOR: Pedido AGREGA (contiene) sus LineaPedido, por lo tanto Pedido
- * es el candidato natural para crearlas.
- *
- * Al asumir la creación, Pedido puede además:
- *  - garantizar que no haya dos líneas del mismo producto,
- *  - congelar el precio del momento,
- *  - devolver su lista como copia inmutable.
- */
 public class Pedido {
-    private final String id;
-    private final List<LineaPedido> lineas = new ArrayList<>();
+    private String id;
+    private ArrayList<LineaPedido> lineas = new ArrayList<LineaPedido>();
 
-    public Pedido(String id) { this.id = id; }
-
-    public String id() { return id; }
-
-    /** El único camino para agregar algo a un pedido. */
-    public void agregar(Producto producto, int cantidad) {
-        buscar(producto).ifPresentOrElse(
-                linea -> linea.sumar(cantidad),
-                () -> lineas.add(new LineaPedido(producto, cantidad, producto.precio())));
+    public Pedido(String id) {
+        this.id = id;
     }
 
-    private Optional<LineaPedido> buscar(Producto producto) {
-        return lineas.stream()
-                .filter(l -> l.producto().sku().equals(producto.sku()))
-                .findFirst();
+    public String getId() { return id; }
+
+    public void agregar(Producto producto, int cantidad) {
+        LineaPedido existente = buscar(producto);
+
+        if (existente != null) {
+            existente.sumar(cantidad);
+        } else {
+            lineas.add(new LineaPedido(producto, cantidad, producto.getPrecio()));
+        }
+    }
+
+    private LineaPedido buscar(Producto producto) {
+        for (LineaPedido linea : lineas) {
+            if (linea.getProducto().getSku().equals(producto.getSku())) {
+                return linea;
+            }
+        }
+        return null;
     }
 
     public double total() {
-        return lineas.stream().mapToDouble(LineaPedido::subtotal).sum();
+        double total = 0;
+        for (LineaPedido linea : lineas) {
+            total = total + linea.subtotal();
+        }
+        return total;
     }
 
-    /** Copia: se puede leer, no romper. */
-    public List<LineaPedido> lineas() { return List.copyOf(lineas); }
+    public ArrayList<LineaPedido> getLineas() {
+        return new ArrayList<LineaPedido>(lineas);
+    }
 }

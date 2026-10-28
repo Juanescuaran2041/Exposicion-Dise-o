@@ -1,19 +1,16 @@
 package grasp.variacionesprotegidas.comun;
 
-/**
- * LIBRERÍA EXTERNA (simulada). Fíjate en su vocabulario propio:
- * "payment", estados en texto, montos en unidades enteras y códigos
- * de error suyos. Nada de eso es de nuestro negocio.
- */
 public class PayPalSDK {
+    private String idComercio;
 
-    private final String merchantId;
+    public PayPalSDK(String idComercio) {
+        this.idComercio = idComercio;
+    }
 
-    public PayPalSDK(String merchantId) { this.merchantId = merchantId; }
-
-    public PayPalPayment createPayment(double amount, String currency) {
-        if (amount <= 0) return new PayPalPayment(null, "FAILED", 0, "INVALID_AMOUNT");
-        return new PayPalPayment("PP-" + Math.abs((merchantId + amount).hashCode()),
-                "APPROVED", amount, null);
+    public PayPalPago createPayment(double monto, String moneda) {
+        if (monto <= 0) {
+            return new PayPalPago(null, "FAILED", 0, "INVALID_AMOUNT");
+        }
+        return new PayPalPago("PP-" + idComercio + "-" + (int) monto, "APPROVED", monto, null);
     }
 }

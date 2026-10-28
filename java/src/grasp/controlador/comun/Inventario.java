@@ -1,31 +1,44 @@
 package grasp.controlador.comun;
 
 import java.util.HashMap;
-import java.util.Map;
 
-/** Colaborador: lleva el stock y las reservas. */
 public class Inventario {
-    private final Map<String, Integer> stock = new HashMap<>();
+    private HashMap<String, Integer> stock = new HashMap<String, Integer>();
 
-    public Inventario conStock(String sku, int unidades) {
+    public void definirStock(String sku, int unidades) {
         stock.put(sku, unidades);
-        return this;
     }
 
     public boolean hayStock(Carrito carrito) {
-        return carrito.items().stream()
-                .allMatch(i -> stock.getOrDefault(i.sku(), 0) >= i.cantidad());
+        for (Item item : carrito.getItems()) {
+            int disponibles = disponible(item.getSku());
+            if (disponibles < item.getCantidad()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean reservar(Carrito carrito) {
-        if (!hayStock(carrito)) return false;
-        carrito.items().forEach(i -> stock.merge(i.sku(), -i.cantidad(), Integer::sum));
+        if (!hayStock(carrito)) {
+            return false;
+        }
+        for (Item item : carrito.getItems()) {
+            stock.put(item.getSku(), disponible(item.getSku()) - item.getCantidad());
+        }
         return true;
     }
 
     public void liberar(Carrito carrito) {
-        carrito.items().forEach(i -> stock.merge(i.sku(), i.cantidad(), Integer::sum));
+        for (Item item : carrito.getItems()) {
+            stock.put(item.getSku(), disponible(item.getSku()) + item.getCantidad());
+        }
     }
 
-    public int disponible(String sku) { return stock.getOrDefault(sku, 0); }
+    public int disponible(String sku) {
+        if (stock.containsKey(sku)) {
+            return stock.get(sku);
+        }
+        return 0;
+    }
 }

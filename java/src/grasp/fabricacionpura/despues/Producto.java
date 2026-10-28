@@ -1,14 +1,21 @@
 package grasp.fabricacionpura.despues;
 
-/**
- * Dominio puro: ni un import de java.sql.
- * Producto solo habla de productos, y se puede probar en un milisegundo.
- */
-public record Producto(String sku, String nombre, double precio) {
+public class Producto {
+    private String sku;
+    private String nombre;
+    private double precio;
 
-    public Producto {
-        if (precio < 0) throw new IllegalArgumentException("precio >= 0");
+    public Producto(String sku, String nombre, double precio) {
+        this.sku = sku;
+        this.nombre = nombre;
+        this.precio = precio;
     }
 
-    public double precioConIva() { return precio * 1.19; }
+    public double precioConIva() {
+        return precio * 1.19;
+    }
+
+    public String getSku()    { return sku; }
+    public String getNombre() { return nombre; }
+    public double getPrecio() { return precio; }
 }

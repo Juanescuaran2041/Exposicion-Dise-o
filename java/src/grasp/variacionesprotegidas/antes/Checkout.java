@@ -1,29 +1,19 @@
 package grasp.variacionesprotegidas.antes;
 
-import grasp.variacionesprotegidas.comun.*;
+import grasp.variacionesprotegidas.comun.PayPalPago;
+import grasp.variacionesprotegidas.comun.PayPalSDK;
+import grasp.variacionesprotegidas.comun.Pedido;
+import grasp.variacionesprotegidas.comun.Recibo;
 
-/**
- * PROBLEMA: Checkout está casado con PayPal.
- *
- * El punto de variación ("¿con qué pasarela cobramos?") no está aislado:
- * está esparcido por el código del dominio. Checkout conoce el SDK,
- * su estado "APPROVED", sus códigos de error y su moneda.
- *
- * El día que la empresa cambie de proveedor (y va a pasar), hay que
- * reescribir Checkout y todo lo que mencione PayPalSDK. Tampoco se puede
- * probar sin llamar a PayPal, ni cobrar en pesos, ni tener dos pasarelas
- * a la vez para un experimento A/B.
- */
 public class Checkout {
-
-    private final PayPalSDK paypal = new PayPalSDK("merchant-1");   // decidido aquí, en duro
+    private PayPalSDK paypal = new PayPalSDK("comercio-1");   // decidido aqui
 
     public Recibo pagar(Pedido pedido) {
-        PayPalPayment pago = paypal.createPayment(pedido.total(), "USD");
+        PayPalPago pago = paypal.createPayment(pedido.getTotal(), "USD");
 
-        if (!"APPROVED".equals(pago.state())) {                     // vocabulario de PayPal
-            throw new IllegalStateException("Pago rechazado: " + pago.errorCode());
+        if (!pago.getEstado().equals("APPROVED")) {            // idioma de PayPal
+            throw new IllegalStateException("Pago rechazado: " + pago.getCodigoError());
         }
-        return new Recibo(pago.id(), pago.amount(), "PayPal");
+        return new Recibo(pago.getId(), pago.getMonto(), "PayPal");
     }
 }

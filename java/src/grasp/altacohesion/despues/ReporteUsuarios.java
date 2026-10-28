@@ -1,13 +1,15 @@
 package grasp.altacohesion.despues;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.ArrayList;
 
-/** Responsabilidad única: armar reportes. */
 public class ReporteUsuarios {
-    public byte[] pdf(List<Usuario> usuarios) {
-        StringBuilder sb = new StringBuilder("%PDF-1.4\n");
-        usuarios.forEach(u -> sb.append(u.nombre()).append(" <").append(u.email()).append(">\n"));
-        return sb.toString().getBytes(StandardCharsets.UTF_8);
+    public String generar(ArrayList<Usuario> usuarios) {
+        String reporte = "REPORTE DE USUARIOS";
+        for (Usuario usuario : usuarios) {
+            reporte = reporte + "\n      - " + usuario.getNombre()
+                    + " <" + usuario.getEmail() + "> compras: "
+                    + usuario.comprasRealizadas();
+        }
+        return reporte;
     }
 }

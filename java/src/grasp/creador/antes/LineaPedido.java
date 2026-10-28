@@ -1,18 +1,18 @@
 package grasp.creador.antes;
 
 public class LineaPedido {
-    private final Producto producto;
+    private Producto producto;
     private int cantidad;
-    private final double precioUnitarioCongelado;
+    private double precioUnitario;
 
-    public LineaPedido(Producto producto, int cantidad, double precioUnitarioCongelado) {
+    public LineaPedido(Producto producto, int cantidad, double precioUnitario) {
         this.producto = producto;
         this.cantidad = cantidad;
-        this.precioUnitarioCongelado = precioUnitarioCongelado;
+        this.precioUnitario = precioUnitario;
     }
 
-    public Producto getProducto() { return producto; }
-    public int getCantidad()      { return cantidad; }
+    public Producto getProducto()  { return producto; }
+    public int getCantidad()       { return cantidad; }
     public void setCantidad(int c) { this.cantidad = c; }   // setter abierto
-    public double subtotal()      { return precioUnitarioCongelado * cantidad; }
+    public double subtotal()       { return precioUnitario * cantidad; }
 }

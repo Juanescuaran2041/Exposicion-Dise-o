@@ -1,38 +1,28 @@
 package grasp.indireccion.despues;
 
-import grasp.indireccion.comun.*;
+import grasp.indireccion.comun.ApiImpuestos;
 
-/**
- * INDIRECCIÓN: un objeto intermedio entre el dominio y la API externa.
- *
- * Todo lo feo queda aquí, en un solo lugar:
- *  - la clave de la API,
- *  - la conversión pesos <-> centavos,
- *  - la interpretación de los códigos de estado,
- *  - la política de respaldo cuando el servicio se cae,
- *  - (y si mañana hay que cachear o reintentar, también va aquí).
- *
- * El dominio pregunta en pesos y recibe pesos.
- */
 public class ServicioImpuestos {
-
-    private final TaxMasterClient api;
-    private final double tasaRespaldo;
+    private ApiImpuestos api;
+    private double tasaDeRespaldo;
     private int vecesQueUsoElRespaldo = 0;
 
-    public ServicioImpuestos(TaxMasterClient api, double tasaRespaldo) {
+    public ServicioImpuestos(ApiImpuestos api, double tasaDeRespaldo) {
         this.api = api;
-        this.tasaRespaldo = tasaRespaldo;
+        this.tasaDeRespaldo = tasaDeRespaldo;
     }
 
     public double calcular(String pais, double base, String tipoDocumento) {
-        TaxResponse r = api.calc(new TaxRequest(pais, Math.round(base * 100), tipoDocumento));
-        if (r.status() != 200) {
+        long centavos = api.calcularEnCentavos(pais, Math.round(base * 100), tipoDocumento);
+
+        if (centavos == -1) {
             vecesQueUsoElRespaldo++;
-            return base * tasaRespaldo;
+            return base * tasaDeRespaldo;
         }
-        return r.amountCents() / 100.0;
+        return centavos / 100.0;
     }
 
-    public int vecesQueUsoElRespaldo() { return vecesQueUsoElRespaldo; }
+    public int getVecesQueUsoElRespaldo() {
+        return vecesQueUsoElRespaldo;
+    }
 }

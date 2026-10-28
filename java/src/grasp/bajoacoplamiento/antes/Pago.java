@@ -1,19 +1,19 @@
 package grasp.bajoacoplamiento.antes;
 
-import java.time.LocalDate;
-
 public class Pago {
-    private final double monto;
-    private final LocalDate fecha;
+    private double monto;
+    private String fecha;
     private String autorizacion;
 
-    public Pago(double monto, LocalDate fecha) {
+    public Pago(double monto, String fecha) {
         this.monto = monto;
         this.fecha = fecha;
     }
 
-    public void setAutorizacion(String autorizacion) { this.autorizacion = autorizacion; }
+    public void setAutorizacion(String autorizacion) {
+        this.autorizacion = autorizacion;
+    }
+
+    public double getMonto()        { return monto; }
     public String getAutorizacion() { return autorizacion; }
-    public double getMonto() { return monto; }
-    public LocalDate getFecha() { return fecha; }
 }

@@ -1,10 +1,9 @@
 package grasp.experto.antes;
 
-/** Producto anémico: solo guarda datos y los expone con getters. */
 public class Producto {
-    private final String nombre;
-    private final double precio;
-    private final double iva;      // 0.19 = 19%
+    private String nombre;
+    private double precio;
+    private double iva;          // 0.19 = 19%
 
     public Producto(String nombre, double precio, double iva) {
         this.nombre = nombre;

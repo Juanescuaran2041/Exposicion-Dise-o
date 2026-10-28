@@ -1,14 +1,21 @@
 package grasp.controlador.comun;
 
-import java.util.List;
+public class Pedido {
+    private String id;
+    private Cliente cliente;
+    private double total;
 
-public record Pedido(String id, Cliente cliente, List<Item> items) {
+    public Pedido(String id, Cliente cliente, double total) {
+        this.id = id;
+        this.cliente = cliente;
+        this.total = total;
+    }
 
     public static Pedido desde(Carrito carrito, Cliente cliente) {
-        return new Pedido("PED-" + carrito.id(), cliente, carrito.items());
+        return new Pedido("PED-" + carrito.getId(), cliente, carrito.total());
     }
 
-    public double total() {
-        return items.stream().mapToDouble(Item::subtotal).sum();
-    }
+    public String getId()      { return id; }
+    public Cliente getCliente() { return cliente; }
+    public double getTotal()   { return total; }
 }

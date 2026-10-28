@@ -1,7 +1,17 @@
 package grasp.variacionesprotegidas.despues;
 
-/**
- * NUESTRO vocabulario, no el del proveedor.
- * Cada implementación traduce su jerga a este tipo estable.
- */
-public record Cobro(String referencia, double monto, String pasarela) { }
+public class Cobro {
+    private String referencia;
+    private double monto;
+    private String pasarela;
+
+    public Cobro(String referencia, double monto, String pasarela) {
+        this.referencia = referencia;
+        this.monto = monto;
+        this.pasarela = pasarela;
+    }
+
+    public String getReferencia() { return referencia; }
+    public double getMonto()      { return monto; }
+    public String getPasarela()   { return pasarela; }
+}

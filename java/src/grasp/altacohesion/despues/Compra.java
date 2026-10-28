@@ -1,5 +1,14 @@
 package grasp.altacohesion.despues;
 
-import java.time.LocalDate;
+public class Compra {
+    private String id;
+    private double monto;
 
-public record Compra(String id, double monto, LocalDate fecha) { }
+    public Compra(String id, double monto) {
+        this.id = id;
+        this.monto = monto;
+    }
+
+    public String getId()    { return id; }
+    public double getMonto() { return monto; }
+}

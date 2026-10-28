@@ -1,15 +1,15 @@
 package grasp.variacionesprotegidas.despues;
 
-/**
- * El proveedor que llegó DESPUÉS de escribir Checkout.
- * Se agregó esta clase y nada más: Checkout no se tocó.
- */
-public class PagoNequi implements PasarelaPago {
 
-    @Override public Cobro cobrar(double monto, String moneda) throws PagoRechazado {
-        if (!"COP".equals(moneda)) throw new PagoRechazado("Nequi solo opera en COP");
-        return new Cobro("NQ-" + Math.round(monto), monto, nombre());
+public class PagoNequi implements PasarelaPago {
+    public Cobro cobrar(double monto, String moneda) {
+        if (!moneda.equals("COP")) {
+            throw new PagoRechazado("Nequi solo recibe pesos colombianos");
+        }
+        return new Cobro("NQ-" + (int) monto, monto, nombre());
     }
 
-    @Override public String nombre() { return "Nequi"; }
+    public String nombre() {
+        return "Nequi";
+    }
 }

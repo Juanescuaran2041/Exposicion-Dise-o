@@ -3,15 +3,9 @@ package grasp.bajoacoplamiento.despues;
 import grasp.bajoacoplamiento.comun.EstadoVenta;
 import grasp.bajoacoplamiento.comun.Recibo;
 
-/**
- * Venta YA conocía a Pago (lo tiene como atributo), así que darle la
- * responsabilidad de pagar no agrega ni un acoplamiento nuevo al diseño:
- * solo quita los de Caja. Esa es la pregunta de Bajo Acoplamiento:
- * "¿esta asignación crea dependencias nuevas o aprovecha las que ya hay?"
- */
 public class Venta {
-    private final String id;
-    private final double monto;
+    private String id;
+    private double monto;
     private Pago pago;
     private EstadoVenta estado = EstadoVenta.ABIERTA;
 
@@ -21,13 +15,15 @@ public class Venta {
     }
 
     public Recibo pagar(double monto, String tarjeta) {
-        if (estado != EstadoVenta.ABIERTA) throw new IllegalStateException("Venta ya cerrada");
+        if (estado != EstadoVenta.ABIERTA) {
+            throw new IllegalStateException("La venta ya estaba cerrada");
+        }
         this.pago = Pago.conTarjeta(monto, tarjeta);
         this.estado = EstadoVenta.PAGADA;
-        return new Recibo(id, monto, pago.autorizacion());
+        return new Recibo(id, monto, pago.getAutorizacion());
     }
 
-    public String id()           { return id; }
-    public double monto()        { return monto; }
-    public EstadoVenta estado()  { return estado; }
+    public String getId()          { return id; }
+    public double getMonto()       { return monto; }
+    public EstadoVenta getEstado() { return estado; }
 }

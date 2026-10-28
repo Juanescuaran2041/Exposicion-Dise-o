@@ -1,12 +1,15 @@
 package grasp.controlador.comun;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/** Colaborador: guarda los pedidos (en memoria, para la demo). */
 public class RepositorioPedidos {
-    private final List<Pedido> guardados = new ArrayList<>();
+    private ArrayList<Pedido> guardados = new ArrayList<Pedido>();
 
-    public void guardar(Pedido pedido) { guardados.add(pedido); }
-    public int cantidad() { return guardados.size(); }
+    public void guardar(Pedido pedido) {
+        guardados.add(pedido);
+    }
+
+    public int cantidad() {
+        return guardados.size();
+    }
 }

@@ -1,29 +1,25 @@
 package grasp.creador.despues;
 
-/**
- * La línea ya no tiene setters públicos: solo Pedido (su creador y dueño)
- * la construye, y ella misma sabe sumar cantidades.
- */
 public class LineaPedido {
-    private final Producto producto;
+    private Producto producto;
     private int cantidad;
-    private final double precioUnitarioCongelado;
+    private double precioUnitario;
 
-    /** Package-private: nadie fuera del paquete puede crear líneas sueltas. */
-    LineaPedido(Producto producto, int cantidad, double precioUnitarioCongelado) {
-        if (cantidad <= 0) throw new IllegalArgumentException("cantidad > 0");
+    LineaPedido(Producto producto, int cantidad, double precioUnitario) {
         this.producto = producto;
         this.cantidad = cantidad;
-        this.precioUnitarioCongelado = precioUnitarioCongelado;
+        this.precioUnitario = precioUnitario;
     }
 
-    void sumar(int extra) { this.cantidad += extra; }
+    void sumar(int extra) {
+        this.cantidad = this.cantidad + extra;
+    }
 
-    public Producto producto() { return producto; }
-    public int cantidad()      { return cantidad; }
-    public double subtotal()   { return precioUnitarioCongelado * cantidad; }
+    public Producto getProducto() { return producto; }
+    public int getCantidad()      { return cantidad; }
+    public double subtotal()      { return precioUnitario * cantidad; }
 
     public String descripcion() {
-        return cantidad + " x " + producto.nombre();
+        return cantidad + " x " + producto.getNombre();
     }
 }

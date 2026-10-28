@@ -1,21 +1,18 @@
 package grasp.indireccion.antes;
 
-import grasp.indireccion.comun.*;
+import grasp.indireccion.comun.ApiImpuestos;
 
-/**
- * ...y otra vez. Nótese el error sutil: aquí alguien olvidó el respaldo
- * y, si la API falla, la devolución queda con impuesto 0.
- * Así es como la duplicación se convierte en bugs distintos en cada copia.
- */
 public class Devolucion {
+    private double subtotal;
 
-    private final double subtotal;
-
-    public Devolucion(double subtotal) { this.subtotal = subtotal; }
+    public Devolucion(double subtotal) {
+        this.subtotal = subtotal;
+    }
 
     public double impuesto() {
-        TaxMasterClient api = new TaxMasterClient("KEY-123");
-        TaxResponse r = api.calc(new TaxRequest("CO", Math.round(subtotal * 100), "DEVOLUCION"));
-        return r.amountCents() / 100.0;          // sin respaldo: devuelve 0 si falla
+        ApiImpuestos api = new ApiImpuestos("CLAVE-123");
+        long centavos = api.calcularEnCentavos("CO", Math.round(subtotal * 100), "DEVOLUCION");
+
+        return centavos / 100.0;        // sin plan B
     }
 }

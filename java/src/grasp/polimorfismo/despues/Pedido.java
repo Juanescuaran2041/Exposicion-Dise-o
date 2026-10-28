@@ -1,13 +1,27 @@
 package grasp.polimorfismo.despues;
 
-/** El pedido guarda un Envio, no un String: el compilador ayuda. */
-public record Pedido(String id, Envio envio, double pesoKg) {
+public class Pedido {
+    private String id;
+    private Envio envio;
+    private double pesoKg;
 
-    public double costoEnvio() { return envio.costo(pesoKg); }
+    public Pedido(String id, Envio envio, double pesoKg) {
+        this.id = id;
+        this.envio = envio;
+        this.pesoKg = pesoKg;
+    }
+
+    public double costoEnvio() {
+        return envio.costo(pesoKg);
+    }
 
     public String resumen() {
-        return String.format("%s · %s · $%,.0f · %d día(s)%s",
-                id, envio.etiqueta(), costoEnvio(), envio.diasEntrega(),
-                envio.requiereAduana() ? " · requiere aduana" : "");
+        String texto = String.format("%s · %s · $%,.0f · %d dia(s)",
+                id, envio.etiqueta(), costoEnvio(), envio.diasEntrega());
+
+        if (envio.requiereAduana()) {
+            texto = texto + " · requiere aduana";
+        }
+        return texto;
     }
 }

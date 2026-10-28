@@ -1,30 +1,18 @@
 package grasp.creador.antes;
 
-import java.util.List;
+import java.util.ArrayList;
 
-/**
- * PROBLEMA: la pantalla (UI) decide cómo se construye una LineaPedido
- * y además implementa la regla "si el producto ya estaba, suma cantidades".
- *
- * Consecuencias:
- *  - La UI se acopla al constructor de LineaPedido: si cambia la firma,
- *    hay que editar todas las pantallas.
- *  - La regla de agrupar líneas vive en la UI: la API REST, la app móvil
- *    y las pruebas tendrán que copiarla (y alguna la copiará mal).
- *  - Pedido no puede garantizar sus propias invariantes.
- */
 public class PantallaCompra {
+    public void agregar(Pedido pedido, Producto producto, int cantidad) {
+        ArrayList<LineaPedido> lineas = pedido.getLineas();
 
-    public void agregar(Pedido pedido, Producto prod, int cantidad) {
-        List<LineaPedido> lineas = pedido.getLineas();
-
-        for (LineaPedido l : lineas) {              // ¿ya estaba el producto?
-            if (l.getProducto().equals(prod)) {
-                l.setCantidad(l.getCantidad() + cantidad);
+        for (LineaPedido linea : lineas) {                 // ¿ya estaba?
+            if (linea.getProducto().getSku().equals(producto.getSku())) {
+                linea.setCantidad(linea.getCantidad() + cantidad);
                 return;
             }
         }
-        // la UI elige el precio que se congela en la línea
-        lineas.add(new LineaPedido(prod, cantidad, prod.getPrecio()));
+        // la pantalla elige el precio que se guarda en la linea
+        lineas.add(new LineaPedido(producto, cantidad, producto.getPrecio()));
     }
 }
