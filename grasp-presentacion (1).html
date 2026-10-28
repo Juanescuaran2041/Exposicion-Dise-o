@@ -129,10 +129,10 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .slide.after .toggle .pill { transform: translateX(100%); background: var(--good); }
 .slide:not(.after) .toggle .b-before, .slide.after .toggle .b-after { color: #0b0d14; }
 
-.ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 14px; }
-.idea { display: flex; gap: 14px; align-items: center; padding: 10px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); }
+.ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 10px; }
+.idea { display: flex; gap: 12px; align-items: center; padding: 8px 14px; border-radius: 13px; background: var(--surface); border: 1px solid var(--rule); }
 .idea .tag { flex: none; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .12em; padding: 5px 9px; border-radius: 7px; background: color-mix(in srgb, var(--p) 18%, transparent); color: var(--p); }
-.idea p { margin: 0; font-size: 17px; line-height: 1.3; }
+.idea p { margin: 0; font-size: 16px; line-height: 1.3; }
 
 .work { display: grid; grid-template-columns: 1.08fr 1fr; gap: 18px; flex: 1; min-height: 0; }
 .pane { border-radius: 16px; border: 1px solid var(--rule); overflow: hidden; display: flex; flex-direction: column; min-height: 0; position: relative; }
@@ -141,7 +141,10 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .pane-head .fname { margin-left: 8px; color: #e4e7f3; }
 .pane-head .state { margin-left: auto; font-weight: 600; padding: 2px 9px; border-radius: 99px; font-size: 11px; letter-spacing: .08em; }
 .code-pane { background: var(--code-bg); }
-.code { margin: 0; padding: 14px 0; font-family: var(--f-mono); font-size: 12px; line-height: 1.55; color: #d7dbea; overflow: auto; flex: 1; tab-size: 2; }
+.code { margin: 0; padding: 12px 0; font-family: var(--f-mono); font-size: 11.4px; line-height: 1.46; color: #d7dbea; overflow: auto; flex: 1; tab-size: 2;
+  scrollbar-width: thin; scrollbar-color: #3a3f55 transparent; }
+.code::-webkit-scrollbar { width: 9px; }
+.code::-webkit-scrollbar-thumb { background: #3a3f55; border-radius: 9px; }
 .code .ln { display: block; padding: 0 16px 0 14px; border-left: 3px solid transparent; white-space: pre; opacity: 0; animation: lnIn .4s forwards; }
 .code .ln.bad { background: color-mix(in srgb, #ff5d73 13%, transparent); border-left-color: #ff5d73; }
 .code .ln.good { background: color-mix(in srgb, #3ee0a1 12%, transparent); border-left-color: #3ee0a1; }
@@ -159,10 +162,10 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
 .legend i { width: 18px; height: 0; border-top: 2px dashed currentColor; display: inline-block; }
 .legend i.solid { border-top-style: solid; }
 
-.verdict { display: flex; align-items: center; gap: 14px; margin-top: 14px; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--rule); background: var(--surface); }
+.verdict { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 10px 15px; border-radius: 14px; border: 1px solid var(--rule); background: var(--surface); }
 .verdict .vi { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; color: #0b0d14; background: var(--bad); transition: background .3s; }
 .slide.after .verdict .vi { background: var(--good); }
-.verdict .vt { font-size: 17px; flex: 1; }
+.verdict .vt { font-size: 16px; flex: 1; }
 .kpi { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); padding-left: 16px; border-left: 1px solid var(--rule); }
 .kpi .kv { font-family: var(--f-display); font-weight: 800; font-size: 20px; padding: 2px 10px; border-radius: 8px; transition: all .35s; }
 .kpi .k-before { color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
@@ -282,7 +285,7 @@ code { font-family: var(--f-mono); font-size: .85em; padding: .1em .4em; border-
       <h1>Los 9 patrones<br><span>GRASP</span></h1>
       <p>¿Quién debe hacer cada tarea? Nueve criterios, cada uno con su antes y después en Java.</p>
       <div class="orbit" id="orbit" aria-hidden="true"></div>
-      <div class="authors"><span>← → para navegar</span><span>·</span><span><b>Espacio</b> alterna Antes / Después</span></div>
+      <div class="authors"><span>← → para navegar</span><span>·</span><span><b>Espacio</b> alterna Antes / Después</span><span>·</span><span>Código completo y ejecutable: carpeta <b>/java</b></span></div>
     </section>
 
     <!-- 2 · qué es GRASP -->
@@ -377,48 +380,56 @@ const PATTERNS = [
   one: "Hace la tarea quien tiene los datos",
   que: "La responsabilidad va a la clase que tiene la información para cumplirla.",
   porque: "La lógica vive junto a sus datos; nadie hurga en objetos ajenos.",
-  vBefore: "ServicioCaja recorre Carrito → Línea → Producto para sumar: conoce demasiado.",
-  vAfter: "Cada objeto calcula lo suyo: Carrito suma, Línea multiplica.",
+  vBefore: "ServicioCaja recorre Carrito → Línea → Producto y aplica él mismo descuento e IVA.",
+  vAfter: "Cada objeto calcula lo suyo: Producto el IVA, Línea su subtotal, Carrito el total.",
   kpi: ["Clases que conoce ServicioCaja", "3", "1"],
-  before: `class ServicioCaja {
+  before: `class ServicioCaja {                     // no tiene datos propios
   double calcularTotal(Carrito carrito) {
     double total = 0;
-!    for (Linea l : carrito.getLineas()) {
-!      total += l.getProducto().getPrecio()
-!             * l.getCantidad();
+!    for (Linea l : carrito.getLineas()) {       // navega al carrito
+!      Producto p = l.getProducto();             // navega a la linea
+!      double bruto = p.getPrecio() * l.getCantidad();
+!      double desc  = bruto * l.getPorcentajeDescuento();
+!      total += (bruto - desc) * (1 + p.getIva());
     }
     return total;
   }
 }
 
-class Carrito {
-  private List<Linea> lineas;
-  List<Linea> getLineas() { return lineas; }
-}`,
+class Carrito  { List<Linea> getLineas() { return lineas; } }
+class Linea    { Producto getProducto();  int getCantidad();
+                 double getPorcentajeDescuento(); }
+class Producto { double getPrecio();  double getIva(); }
+
+// 3 clases conocidas + reglas de descuento e IVA que no son suyas`,
   after: `class ServicioCaja {
   double cobrar(Carrito carrito) {
-+    return carrito.total();
++    return carrito.total();            // una sola pregunta
   }
 }
 
-class Carrito {
-  private List<Linea> lineas;
-+  double total() {                  // Experto: tiene las líneas
+class Carrito {                          // experto: tiene las lineas
++  double total() {
 +    return lineas.stream().mapToDouble(Linea::subtotal).sum();
 +  }
 }
 
-class Linea {
-  private Producto producto;
-  private int cantidad;
-+  double subtotal() { return producto.getPrecio() * cantidad; }
+class Linea {                            // experto: cantidad y descuento
++  double subtotal() {
++    double bruto = producto.precioConIva() * cantidad;
++    return bruto * (1 - porcentajeDescuento);
++  }
+}
+
+class Producto {                         // experto: precio e IVA
++  double precioConIva() { return precio * (1 + iva); }
 }`,
   dBefore: {
     boxes: [
-      { id: "s", name: "ServicioCaja", x: 20, y: 40, w: 190, ops: ["!calcularTotal(c)"], kind: "bad" },
-      { id: "c", name: "Carrito", x: 340, y: 20, w: 190, ops: ["getLineas()"] },
-      { id: "l", name: "Linea", x: 340, y: 160, w: 190, ops: ["getProducto()", "getCantidad()"] },
-      { id: "p", name: "Producto", x: 340, y: 310, w: 190, ops: ["getPrecio()"] }
+      { id: "s", name: "ServicioCaja", x: 10, y: 150, w: 200, ops: ["!calcularTotal(c)"], kind: "bad" },
+      { id: "c", name: "Carrito", x: 330, y: 10, w: 220, ops: ["getLineas()"] },
+      { id: "l", name: "Linea", x: 330, y: 120, w: 220, ops: ["getProducto()", "getCantidad()", "getPorcentajeDescuento()"] },
+      { id: "p", name: "Producto", x: 330, y: 290, w: 220, ops: ["getPrecio()", "getIva()"] }
     ],
     edges: [
       { a: "s", b: "c", t: "dep" }, { a: "s", b: "l", t: "dep", k: "bad" }, { a: "s", b: "p", t: "dep", k: "bad" },
@@ -427,10 +438,10 @@ class Linea {
   },
   dAfter: {
     boxes: [
-      { id: "s", name: "ServicioCaja", x: 20, y: 40, w: 190, ops: ["cobrar(c)"] },
-      { id: "c", name: "Carrito", x: 340, y: 20, w: 190, ops: ["+total()"], kind: "good" },
-      { id: "l", name: "Linea", x: 340, y: 160, w: 190, ops: ["+subtotal()"], kind: "good" },
-      { id: "p", name: "Producto", x: 340, y: 310, w: 190, ops: ["getPrecio()"] }
+      { id: "s", name: "ServicioCaja", x: 10, y: 150, w: 200, ops: ["cobrar(c)"] },
+      { id: "c", name: "Carrito", x: 330, y: 20, w: 210, ops: ["+total()"], kind: "good" },
+      { id: "l", name: "Linea", x: 330, y: 160, w: 210, ops: ["+subtotal()"], kind: "good" },
+      { id: "p", name: "Producto", x: 330, y: 300, w: 210, ops: ["+precioConIva()"], kind: "good" }
     ],
     edges: [
       { a: "s", b: "c", t: "dep" }, { a: "c", b: "l", t: "comp", label: "1..*" }, { a: "l", b: "p", t: "assoc" }
@@ -442,39 +453,57 @@ class Linea {
   one: "Crea A quien contiene o inicializa a A",
   que: "B crea objetos A si B contiene, agrega o tiene los datos para inicializar a A.",
   porque: "La creación queda en un lugar lógico y nadie más se acopla a A.",
-  vBefore: "La pantalla hace new LineaPedido y mete mano en la lista interna del pedido.",
-  vAfter: "Pedido contiene sus líneas, así que él las crea. La pantalla solo pide.",
+  vBefore: "La pantalla crea la línea, decide si agrupar y mete mano en la lista interna del pedido.",
+  vAfter: "Pedido crea sus líneas, agrupa los repetidos y entrega copias. La pantalla solo pide.",
   kpi: ["Quién hace new LineaPedido", "UI", "Pedido"],
-  before: `class PantallaCompra {
+  before: `class PantallaCompra {                        // componente de UI
   void agregar(Pedido pedido, Producto prod, int cant) {
-!    LineaPedido linea = new LineaPedido(prod, cant);
-!    pedido.getLineas().add(linea);
+!    List<LineaPedido> lineas = pedido.getLineas();
+!    for (LineaPedido l : lineas) {            // regla de negocio en la UI
+!      if (l.getProducto().equals(prod)) {     // ¿ya estaba el producto?
+!        l.setCantidad(l.getCantidad() + cant);
+!        return;
+!      }
+!    }
+!    lineas.add(new LineaPedido(prod, cant, prod.getPrecio()));
   }
 }
 
 class Pedido {
   private List<LineaPedido> lineas = new ArrayList<>();
-!  List<LineaPedido> getLineas() { return lineas; } // expone todo
-}`,
+!  List<LineaPedido> getLineas() { return lineas; }   // la lista real
+}
+
+// esa regla se copiara en la API REST y en la app movil`,
   after: `class PantallaCompra {
   void agregar(Pedido pedido, Producto prod, int cant) {
-+    pedido.agregar(prod, cant);
++    pedido.agregar(prod, cant);        // la UI solo traduce la intencion
   }
 }
 
-class Pedido {
+class Pedido {                           // Creador: contiene las lineas
   private final List<LineaPedido> lineas = new ArrayList<>();
 
-  // Creador: Pedido contiene sus líneas -> él las crea
 +  void agregar(Producto prod, int cant) {
-+    lineas.add(new LineaPedido(prod, cant));
++    buscar(prod).ifPresentOrElse(
++        linea -> linea.sumar(cant),              // ya estaba: suma
++        () -> lineas.add(new LineaPedido(        // no estaba: la crea
++                prod, cant, prod.getPrecio())));  // congela el precio
 +  }
++  List<LineaPedido> getLineas() {
++    return List.copyOf(lineas);        // copia: nadie la rompe
++  }
+}
+
+class LineaPedido {
++  LineaPedido(Producto p, int c, double precio) { ... }  // solo Pedido
++  void sumar(int extra) { this.cantidad += extra; }
 }`,
   dBefore: {
     boxes: [
-      { id: "u", name: "PantallaCompra", st: "UI", x: 20, y: 40, w: 200, ops: ["!agregar(p, prod, cant)"], kind: "bad" },
-      { id: "p", name: "Pedido", x: 330, y: 40, w: 200, ops: ["!getLineas()"] },
-      { id: "l", name: "LineaPedido", x: 330, y: 250, w: 200, attrs: ["producto", "cantidad"] }
+      { id: "u", name: "PantallaCompra", st: "UI", x: 10, y: 40, w: 210, ops: ["!agregar(p, prod, cant)", "!agrupar repetidos"], kind: "bad" },
+      { id: "p", name: "Pedido", x: 330, y: 40, w: 215, ops: ["!getLineas()"] },
+      { id: "l", name: "LineaPedido", x: 330, y: 230, w: 215, attrs: ["producto", "cantidad", "precioCongelado"], ops: ["!setCantidad(c)"] }
     ],
     edges: [
       { a: "u", b: "p", t: "dep" }, { a: "u", b: "l", t: "dep", k: "bad", label: "«create»" },
@@ -483,9 +512,9 @@ class Pedido {
   },
   dAfter: {
     boxes: [
-      { id: "u", name: "PantallaCompra", st: "UI", x: 20, y: 40, w: 200, ops: ["agregar(p, prod, cant)"] },
-      { id: "p", name: "Pedido", x: 330, y: 40, w: 200, ops: ["+agregar(prod, cant)"], kind: "good" },
-      { id: "l", name: "LineaPedido", x: 330, y: 250, w: 200, attrs: ["producto", "cantidad"] }
+      { id: "u", name: "PantallaCompra", st: "UI", x: 10, y: 40, w: 210, ops: ["agregar(p, prod, cant)"] },
+      { id: "p", name: "Pedido", x: 330, y: 30, w: 215, ops: ["+agregar(prod, cant)", "+getLineas(): copia"], kind: "good" },
+      { id: "l", name: "LineaPedido", x: 330, y: 230, w: 215, attrs: ["producto", "cantidad", "precioCongelado"], ops: ["+sumar(extra)"], kind: "good" }
     ],
     edges: [
       { a: "u", b: "p", t: "dep" }, { a: "p", b: "l", t: "comp", k: "good", label: "«create» 1..*" }
@@ -497,34 +526,49 @@ class Pedido {
   one: "Un coordinador recibe los eventos del sistema",
   que: "Un objeto que no es UI recibe la operación del sistema y coordina a los demás.",
   porque: "La interfaz no carga reglas de negocio; se puede cambiar sin tocar la lógica.",
-  vBefore: "El botón valida stock, crea el pedido, cobra y envía correo: la UI hace todo.",
-  vAfter: "El botón solo delega. ControladorCompra orquesta el caso de uso.",
+  vBefore: "El botón valida, reserva, cobra, guarda, notifica y hasta deshace la reserva si el pago falla.",
+  vAfter: "El botón delega y pinta; el controlador coordina. El caso de uso ya se invoca sin UI.",
   kpi: ["Dependencias de la UI", "4", "1"],
-  before: `class BotonPagar extends JButton {
+  before: `class BotonPagar extends JButton {            // componente de UI
   void alHacerClic() {
-!    if (inventario.hayStock(carrito)) {
-!      Pedido p = new Pedido(carrito);
-!      pasarela.cobrar(p.total());
-!      notificador.enviar(cliente, "Compra OK");
-    }
-  }
-}`,
-  after: `class BotonPagar extends JButton {
-  void alHacerClic() {
-+    controlador.confirmarCompra(carritoId);  // solo delega
+!    if (!inventario.hayStock(carrito)) { error("Sin stock"); return; }
+!    inventario.reservar(carrito);
+!    Pedido p = Pedido.desde(carrito, cliente);
+!    if (!pasarela.cobrar(cliente.getTarjeta(), p.total())) {
+!      inventario.liberar(carrito);     // la UI deshaciendo la reserva
+!      error("Pago rechazado");
+!      return;
+!    }
+!    pedidos.guardar(p);
+!    notificador.compraConfirmada(p);
+    mostrarRecibo(p);                   // esto si es de la UI
   }
 }
 
-// Controlador: recibe el evento del sistema y coordina
-+class ControladorCompra {
-+  void confirmarCompra(String carritoId) {
-    Carrito c = carritos.buscar(carritoId);
-    inventario.reservar(c);
-    Pedido p = Pedido.desde(c);
-    pasarela.cobrar(p.total());
-    notificador.compraConfirmada(p);
+// ¿el mismo caso de uso por API REST? todo copiado otra vez`,
+  after: `class BotonPagar extends JButton {            // solo captura y pinta
+  void alHacerClic() {
++    Resultado r = controlador.confirmarCompra(carrito, cliente);
++    if (r.exito()) mostrarRecibo(r.pedido()); else error(r.mensaje());
   }
-}`,
+}
+
+// Controlador: recibe la operacion del sistema y coordina a los expertos
++class ControladorCompra {
++  Resultado confirmarCompra(Carrito carrito, Cliente cliente) {
++    if (!inventario.reservar(carrito)) return Resultado.error("Sin stock");
++    Pedido p = Pedido.desde(carrito, cliente);
++    if (!pasarela.cobrar(cliente.getTarjeta(), p.total())) {
++      inventario.liberar(carrito);          // la compensacion vive aqui
++      return Resultado.error("Pago rechazado");
++    }
++    pedidos.guardar(p);
++    notificador.compraConfirmada(p);
++    return Resultado.ok(p);
++  }
++}
+
+// la API REST llama al mismo metodo: cero duplicacion`,
   dBefore: {
     boxes: [
       { id: "b", name: "BotonPagar", st: "UI", x: 180, y: 30, w: 200, ops: ["!alHacerClic()"], kind: "bad pulse" },
@@ -558,50 +602,71 @@ class Pedido {
   one: "Depender de pocas clases",
   que: "Asigna responsabilidades para que cada clase dependa de la menor cantidad de otras.",
   porque: "Un cambio no se propaga en cadena; las clases se reutilizan y prueban solas.",
-  vBefore: "Caja crea el Pago y lo entrega a la Venta: Caja depende de Venta y de Pago.",
-  vAfter: "Caja solo habla con Venta; Venta crea su propio Pago. Una flecha menos.",
-  kpi: ["Dependencias de Caja", "2", "1"],
+  vBefore: "Caja crea el pago, lo autoriza y cambia el estado: termina conociendo cinco clases.",
+  vAfter: "Caja le pide a Venta que cobre. Venta ya conocía a Pago: ni una dependencia nueva.",
+  kpi: ["Clases que conoce Caja", "5", "2"],
   before: `class Caja {
-  void registrarPago(Venta venta, double monto) {
-!    Pago pago = new Pago(monto);     // Caja conoce Pago
+  Recibo registrarPago(Venta venta, double monto, String tarjeta) {
+!    Pago pago = new Pago(monto, LocalDate.now());      // conoce Pago
+!    AutorizacionTarjeta aut = new AutorizacionTarjeta(tarjeta);
+!    pago.setAutorizacion(aut.autorizar(monto));        // y Autorizacion
 !    venta.setPago(pago);
+!    venta.setEstado(EstadoVenta.PAGADA);               // y EstadoVenta
+!    return new Recibo(venta.getId(), monto,
+!                      pago.getAutorizacion());         // y Recibo
   }
 }
 
-class Venta {
+class Venta {                     // pasiva: otros la arman paso a paso
   private Pago pago;
-  void setPago(Pago pago) { this.pago = pago; }
+  private EstadoVenta estado;
+!  void setPago(Pago p)          { this.pago = p; }
+!  void setEstado(EstadoVenta e) { this.estado = e; }
 }`,
   after: `class Caja {
-  void registrarPago(Venta venta, double monto) {
-+    venta.pagar(monto);              // solo conoce Venta
+  Recibo registrarPago(Venta venta, double monto, String tarjeta) {
++    return venta.pagar(monto, tarjeta);     // conoce solo Venta
   }
 }
 
 class Venta {
-  private Pago pago;
-+  void pagar(double monto) {
-+    this.pago = new Pago(monto);
+  private Pago pago;                     // Venta YA conocia a Pago:
+  private EstadoVenta estado = ABIERTA;  // no hay dependencia nueva
+
++  Recibo pagar(double monto, String tarjeta) {
++    if (estado != ABIERTA) throw new IllegalStateException("ya cerrada");
++    this.pago = Pago.conTarjeta(monto, tarjeta);  // Pago se autoriza solo
++    this.estado = EstadoVenta.PAGADA;
++    return new Recibo(id, monto, pago.autorizacion());
 +  }
-}`,
+}
+
+// bonus: ya no existe una "venta a medio pagar"`,
   dBefore: {
     boxes: [
-      { id: "c", name: "Caja", x: 30, y: 50, w: 190, ops: ["registrarPago(v, m)"], kind: "bad" },
-      { id: "v", name: "Venta", x: 340, y: 50, w: 190, ops: ["setPago(p)"] },
-      { id: "p", name: "Pago", x: 340, y: 270, w: 190, attrs: ["monto"] }
+      { id: "c", name: "Caja", x: 10, y: 160, w: 210, ops: ["!registrarPago(v, m, t)"], kind: "bad" },
+      { id: "v", name: "Venta", x: 330, y: 10, w: 215, ops: ["!setPago(p)", "!setEstado(e)"] },
+      { id: "p", name: "Pago", x: 330, y: 150, w: 215, attrs: ["monto", "fecha"], ops: ["!setAutorizacion(a)"] },
+      { id: "a", name: "AutorizacionTarjeta", x: 330, y: 320, w: 215, ops: ["autorizar(monto)"] }
     ],
     edges: [
-      { a: "c", b: "v", t: "dep" }, { a: "c", b: "p", t: "dep", k: "bad", label: "«create»" }, { a: "v", b: "p", t: "assoc" }
+      { a: "c", b: "v", t: "dep" },
+      { a: "c", b: "p", t: "dep", k: "bad", label: "«create»" },
+      { a: "c", b: "a", t: "dep", k: "bad" },
+      { a: "v", b: "p", t: "assoc" }
     ]
   },
   dAfter: {
     boxes: [
-      { id: "c", name: "Caja", x: 30, y: 50, w: 190, ops: ["registrarPago(v, m)"] },
-      { id: "v", name: "Venta", x: 340, y: 50, w: 190, ops: ["+pagar(monto)"], kind: "good" },
-      { id: "p", name: "Pago", x: 340, y: 270, w: 190, attrs: ["monto"] }
+      { id: "c", name: "Caja", x: 10, y: 160, w: 210, ops: ["registrarPago(v, m, t)"] },
+      { id: "v", name: "Venta", x: 330, y: 20, w: 215, ops: ["+pagar(monto, tarjeta)"], kind: "good" },
+      { id: "p", name: "Pago", x: 330, y: 160, w: 215, attrs: ["monto", "fecha", "autorizacion"], ops: ["+conTarjeta(m, t)"], kind: "good" },
+      { id: "a", name: "AutorizacionTarjeta", x: 330, y: 330, w: 215, ops: ["autorizar(monto)"] }
     ],
     edges: [
-      { a: "c", b: "v", t: "dep", k: "good" }, { a: "v", b: "p", t: "assoc", label: "«create»" }
+      { a: "c", b: "v", t: "dep", k: "good" },
+      { a: "v", b: "p", t: "assoc", label: "«create»" },
+      { a: "p", b: "a", t: "dep" }
     ]
   }
 },
@@ -610,27 +675,53 @@ class Venta {
   one: "Cada clase, un propósito",
   que: "Mantén cada clase enfocada en responsabilidades relacionadas entre sí.",
   porque: "Clases pequeñas: fáciles de entender, probar y reutilizar.",
-  vBefore: "Usuario guarda en BD, manda correos, exporta PDF y calcula descuentos.",
-  vAfter: "Usuario solo modela al usuario; cada tarea tiene su propia clase.",
+  vBefore: "Usuario guarda en BD, manda correos, exporta PDF y calcula descuentos: cinco temas en un archivo.",
+  vAfter: "Usuario solo modela al usuario; cada tarea técnica tiene su propia clase.",
   kpi: ["Propósitos de Usuario", "5", "1"],
   before: `class Usuario {
   String nombre, email, claveHash;
+  List<Compra> compras;
 
-  boolean iniciarSesion(String clave) { ... }
-!  void guardarEnBaseDeDatos() { ... }
-!  void enviarCorreoBienvenida() { ... }
-!  byte[] exportarPDF() { ... }
-!  double calcularDescuento() { ... }
-}`,
-  after: `class Usuario {                       // solo el usuario
-  String nombre, email, claveHash;
-  boolean claveCoincide(String clave) { ... }
+  boolean claveCoincide(String clave) { ... }        // 1. el usuario
+!  void guardarEnBaseDeDatos() throws SQLException { // 2. JDBC
+!    Connection cx = DriverManager.getConnection(URL);
+!    cx.prepareStatement("INSERT INTO usuario ...").executeUpdate();
+!  }
+!  void enviarCorreoBienvenida() {                   // 3. SMTP
+!    new SmtpClient("smtp.empresa.com").enviar(email, "Bienvenido");
+!  }
+!  byte[] exportarPDF() { ... }                      // 4. reportes
+!  double calcularDescuento() {                      // 5. mercadeo
+!    return compras.size() > 10 ? 0.15 : 0.08;
+!  }
 }
 
-+class RepositorioUsuarios { void guardar(Usuario u) { ... } }
-+class ServicioCorreo      { void bienvenida(Usuario u) { ... } }
-+class ReporteUsuarios     { byte[] pdf(List<Usuario> us) { ... } }
-+class ProgramaFidelidad   { double descuento(Usuario u) { ... } }`,
+// cinco motivos distintos para editar este archivo`,
+  after: `class Usuario {                        // un solo motivo de cambio
+  private String nombre, email, claveHash;
+  private List<Compra> compras;
+
++  boolean claveCoincide(String c) { return hash(c).equals(claveHash); }
++  int comprasRealizadas() { return compras.size(); }  // sigue siendo experto
+}
+
++class RepositorioUsuarios {            // 2. persistencia
++  void guardar(Usuario u) { ... }
++  Optional<Usuario> porEmail(String email) { ... }
++}
++class ServicioCorreo {                 // 3. mensajeria
++  void bienvenida(Usuario u) { ... }
++}
++class ReporteUsuarios {                // 4. reportes
++  byte[] pdf(List<Usuario> usuarios) { ... }
++}
++class ProgramaFidelidad {              // 5. reglas de mercadeo
++  double descuento(Usuario u) {
++    return u.comprasRealizadas() > 10 ? 0.15 : 0.08;
++  }
++}
+
+// ahora "¿la clave coincide?" se prueba sin BD, sin SMTP y sin PDF`,
   dBefore: {
     boxes: [
       { id: "u", name: "Usuario", x: 150, y: 40, w: 260, attrs: ["nombre", "email", "claveHash"],
@@ -640,7 +731,7 @@ class Venta {
   },
   dAfter: {
     boxes: [
-      { id: "u", name: "Usuario", x: 195, y: 140, w: 170, attrs: ["nombre", "email"], ops: ["claveCoincide(c)"] },
+      { id: "u", name: "Usuario", x: 185, y: 140, w: 190, attrs: ["nombre", "email"], ops: ["claveCoincide(c)", "comprasRealizadas()"] },
       { id: "r", name: "RepositorioUsuarios", x: 0, y: 0, w: 190, ops: ["+guardar(u)"], kind: "good" },
       { id: "c", name: "ServicioCorreo", x: 370, y: 0, w: 190, ops: ["+bienvenida(u)"], kind: "good" },
       { id: "p", name: "ReporteUsuarios", x: 0, y: 320, w: 190, ops: ["+pdf(us)"], kind: "good" },
@@ -654,50 +745,67 @@ class Venta {
   one: "Mismo mensaje, distinto comportamiento",
   que: "Cuando el comportamiento varía según el tipo, cada tipo implementa la operación.",
   porque: "Adiós a if/switch por tipo; un caso nuevo no edita código existente.",
-  vBefore: "Un switch por tipo de envío. Cada tipo nuevo obliga a editar este método.",
-  vAfter: "Cada envío sabe su costo. Un tipo nuevo es una clase nueva.",
-  kpi: ["Para un tipo nuevo", "editar switch", "+1 clase"],
+  vBefore: "Cuatro condicionales sobre el mismo String: un tipo nuevo obliga a editarlas todas.",
+  vAfter: "Cada envío sabe su costo, sus días y su aduana. El tipo nuevo solo se agrega.",
+  kpi: ["Para un tipo nuevo", "editar 4 switch", "+1 clase"],
   before: `class CalculadoraEnvio {
   double costo(String tipo, double kg) {
 !    switch (tipo) {
-!      case "ESTANDAR":      return  5 + kg * 1.0;
-!      case "EXPRESS":       return 12 + kg * 2.0;
-!      case "INTERNACIONAL": return 30 + kg * 4.5;
+!      case "ESTANDAR":      return  5_000 + kg * 1_000;
+!      case "EXPRESS":       return 12_000 + kg * 2_000;
+!      case "INTERNACIONAL": return 30_000 + kg * 4_500;
       default: throw new IllegalArgumentException(tipo);
     }
-    // ¿tipo nuevo? -> volver a editar este switch
   }
-}`,
-  after: `+interface Envio { double costo(double kg); }
+  int diasEntrega(String tipo) {
+!    switch (tipo) {                        // el MISMO switch otra vez
+!      case "ESTANDAR": return 5;   case "EXPRESS": return 1;
+!      case "INTERNACIONAL": return 15;
+      default: throw new IllegalArgumentException(tipo);
+    }
+  }
+!  boolean requiereAduana(String t) { return "INTERNACIONAL".equals(t); }
+!  String etiqueta(String tipo) { switch (tipo) { ... } }   // y otra vez
+}
+
+// ¿"DRON"? -> editar los 4 metodos; y el error sale en ejecucion`,
+  after: `+interface Envio {
++  double costo(double kg);
++  int diasEntrega();
++  String etiqueta();
++  default boolean requiereAduana() { return false; }
++}
 
 class EnvioEstandar implements Envio {
-  public double costo(double kg) { return 5 + kg * 1.0; }
+  public double costo(double kg) { return 5_000 + kg * 1_000; }
+  public int diasEntrega()       { return 5; }
+  public String etiqueta()       { return "Estandar"; }
 }
-class EnvioExpress implements Envio {
-  public double costo(double kg) { return 12 + kg * 2.0; }
-}
-class EnvioInternacional implements Envio {
-  public double costo(double kg) { return 30 + kg * 4.5; }
-}
+class EnvioExpress       implements Envio { /* 12_000 + kg*2_000, 1 dia */ }
+class EnvioInternacional implements Envio { /* aduana = true */ }
++class EnvioDron          implements Envio { /* el tipo nuevo del mes */ }
 
-// uso: sin if ni switch
-+double total = pedido.getEnvio().costo(kg);`,
+// uso: ni un if, ni un switch, ni un String
++Envio envio  = pedido.getEnvio();
++double costo = envio.costo(pedido.pesoKg());
++int dias     = envio.diasEntrega();`,
   dBefore: {
     boxes: [
-      { id: "c", name: "CalculadoraEnvio", x: 140, y: 40, w: 280, ops: ["!costo(tipo: String, kg)"], kind: "bad pulse" },
-      { id: "n", name: "switch (tipo)", kind: "note", x: 140, y: 200, w: 280, attrs: ["\"ESTANDAR\" → ...", "\"EXPRESS\" → ...", "\"INTERNACIONAL\" → ...", "¿nuevo? → editar aquí"] }
+      { id: "c", name: "CalculadoraEnvio", x: 130, y: 20, w: 300, ops: ["!costo(tipo: String, kg)", "!diasEntrega(tipo)", "!requiereAduana(tipo)", "!etiqueta(tipo)"], kind: "bad pulse" },
+      { id: "n", name: "el mismo switch en cada método", kind: "note", x: 130, y: 240, w: 300, attrs: ["\"ESTANDAR\" → ...", "\"EXPRESS\" → ...", "\"INTERNACIONAL\" → ...", "¿\"DRON\"? → editar los 4"] }
     ],
     edges: [ { a: "n", b: "c", t: "dep", k: "bad" } ]
   },
   dAfter: {
     boxes: [
-      { id: "p", name: "Pedido", x: 10, y: 40, w: 150, ops: ["getEnvio()"] },
-      { id: "e", name: "Envio", st: "interface", x: 290, y: 30, w: 200, ops: ["+costo(kg)"], kind: "good" },
-      { id: "a", name: "EnvioEstandar", x: 0, y: 270, w: 176, ops: ["costo(kg)"] },
-      { id: "b", name: "EnvioExpress", x: 192, y: 270, w: 176, ops: ["costo(kg)"] },
-      { id: "c", name: "EnvioInternacional", x: 384, y: 270, w: 176, ops: ["costo(kg)"] }
+      { id: "p", name: "Pedido", x: 10, y: 10, w: 150, ops: ["getEnvio()", "pesoKg()"] },
+      { id: "e", name: "Envio", st: "interface", x: 310, y: 20, w: 240, ops: ["+costo(kg)", "+diasEntrega()", "+etiqueta()", "+requiereAduana()"], kind: "good" },
+      { id: "a", name: "EnvioEstandar", x: 0, y: 210, w: 180, ops: ["costo(kg)"] },
+      { id: "b", name: "EnvioExpress", x: 200, y: 210, w: 180, ops: ["costo(kg)"] },
+      { id: "c", name: "EnvioInternacional", x: 0, y: 320, w: 180, ops: ["costo(kg)"] },
+      { id: "d", name: "EnvioDron", st: "tipo nuevo", x: 200, y: 320, w: 180, ops: ["costo(kg)"], kind: "new" }
     ],
-    edges: [ { a: "p", b: "e", t: "assoc" }, { a: "a", b: "e", t: "impl" }, { a: "b", b: "e", t: "impl" }, { a: "c", b: "e", t: "impl" } ]
+    edges: [ { a: "p", b: "e", t: "assoc" }, { a: "a", b: "e", t: "impl" }, { a: "b", b: "e", t: "impl" }, { a: "c", b: "e", t: "impl" }, { a: "d", b: "e", t: "impl" } ]
   }
 },
 {
@@ -705,47 +813,67 @@ class EnvioInternacional implements Envio {
   one: "Inventar una clase técnica",
   que: "Crea una clase que no existe en el negocio para asumir una tarea técnica.",
   porque: "El dominio queda limpio y cohesivo; lo técnico se reutiliza aparte.",
-  vBefore: "Producto abre conexiones y escribe SQL: el modelo del negocio sabe de JDBC.",
+  vBefore: "Producto abre conexiones y escribe SQL: el modelo del negocio sabe de JDBC y exige una BD.",
   vAfter: "RepositorioProductos (inventado) persiste. Producto vuelve a ser solo dominio.",
   kpi: ["¿Producto sabe de SQL?", "Sí", "No"],
   before: `class Producto {
   String sku, nombre;
   double precio;
 
+  double precioConIva() { return precio * 1.19; }   // esto si es dominio
+
 !  void guardar() throws SQLException {
-!    Connection cx = DriverManager.getConnection(URL);
-!    PreparedStatement ps = cx.prepareStatement(
-!        "INSERT INTO producto VALUES (?, ?, ?)");
-    ps.setString(1, sku);
-    ps.executeUpdate();
-  }
-}`,
-  after: `class Producto {                 // dominio puro
-  String sku, nombre;
-  double precio;
+!    try (Connection cx = DriverManager.getConnection(URL);
+!         PreparedStatement ps = cx.prepareStatement(
+!             "INSERT INTO producto (sku,nombre,precio) VALUES (?,?,?)")) {
+!      ps.setString(1, sku);
+!      ps.setDouble(3, precio);
+!      ps.executeUpdate();
+!    }
+!  }
+!  static List<Producto> buscarTodos() throws SQLException { ... }
 }
 
-// Fabricación Pura: no es un concepto del negocio,
-// se inventa para encargarse de la persistencia
-+class RepositorioProductos {
-+  private final Connection cx;
-+  void guardar(Producto p) { /* INSERT ... */ }
-+  Optional<Producto> buscar(String sku) { ... }
-+}`,
+// el dominio importa java.sql: no se puede probar sin una BD encendida`,
+  after: `class Producto {                  // dominio puro: ni un import de java.sql
+  private String sku, nombre;
+  private double precio;
+  double precioConIva() { return precio * 1.19; }
+}
+
+// Fabricacion Pura: "repositorio" no existe en el negocio; se inventa
+// para que alguien se encargue de la persistencia
++interface RepositorioProductos {
++  void guardar(Producto p);
++  Optional<Producto> buscar(String sku);
++  List<Producto> todos();
++}
+
++class RepositorioProductosJdbc implements RepositorioProductos {
++  private final Connection cx;            // TODO el SQL vive aqui
++  public void guardar(Producto p) { /* INSERT ... */ }
++}
++class RepositorioProductosEnMemoria implements RepositorioProductos {
++  private final Map<String, Producto> tabla = new LinkedHashMap<>();
++}
+
+// las pruebas usan la version en memoria; el dominio no supo cual le toco`,
   dBefore: {
     boxes: [
-      { id: "p", name: "Producto", x: 20, y: 70, w: 230, attrs: ["sku", "nombre", "precio"], ops: ["!guardar()", "!eliminar()"], kind: "bad" },
-      { id: "c", name: "Connection", st: "java.sql", x: 360, y: 110, w: 180, kind: "ext" }
+      { id: "p", name: "Producto", x: 20, y: 60, w: 240, attrs: ["sku", "nombre", "precio"], ops: ["precioConIva()", "!guardar()", "!buscarTodos()"], kind: "bad" },
+      { id: "c", name: "Connection", st: "java.sql", x: 370, y: 100, w: 180, kind: "ext" }
     ],
     edges: [ { a: "p", b: "c", t: "dep", k: "bad", label: "SQL" } ]
   },
   dAfter: {
     boxes: [
-      { id: "p", name: "Producto", x: 10, y: 20, w: 190, attrs: ["sku", "nombre", "precio"] },
-      { id: "r", name: "RepositorioProductos", st: "fabricación pura", x: 270, y: 150, w: 280, ops: ["+guardar(p)", "+buscar(sku)"], kind: "good" },
-      { id: "c", name: "Connection", st: "java.sql", x: 30, y: 300, w: 170, kind: "ext" }
+      { id: "p", name: "Producto", x: 0, y: 20, w: 185, attrs: ["sku", "nombre", "precio"], ops: ["precioConIva()"] },
+      { id: "r", name: "RepositorioProductos", st: "interface · fabricación pura", x: 265, y: 10, w: 285, ops: ["+guardar(p)", "+buscar(sku)", "+todos()"], kind: "good" },
+      { id: "j", name: "ProductosJdbc", x: 225, y: 240, w: 160, ops: ["guardar(p)"] },
+      { id: "m", name: "ProductosEnMemoria", x: 395, y: 240, w: 160, ops: ["guardar(p)"] },
+      { id: "c", name: "Connection", st: "java.sql", x: 10, y: 250, w: 170, kind: "ext" }
     ],
-    edges: [ { a: "r", b: "p", t: "dep" }, { a: "r", b: "c", t: "dep" } ]
+    edges: [ { a: "r", b: "p", t: "dep" }, { a: "j", b: "r", t: "impl" }, { a: "m", b: "r", t: "impl" }, { a: "j", b: "c", t: "dep" } ]
   }
 },
 {
@@ -753,38 +881,56 @@ class EnvioInternacional implements Envio {
   one: "Poner un intermediario",
   que: "Asigna la responsabilidad a un objeto intermedio entre dos partes.",
   porque: "Las partes no se conocen directamente; el detalle externo queda en un solo lugar.",
-  vBefore: "Tres clases llaman directo a la API externa de impuestos y repiten el código.",
-  vAfter: "ServicioImpuestos media: la API solo se usa en un lugar.",
+  vBefore: "Tres clases llaman directo a la API: tres copias del mismo código, y a una se le olvidó el respaldo.",
+  vAfter: "ServicioImpuestos media: la clave, los centavos y el respaldo viven en un solo lugar.",
   kpi: ["Clases atadas a la API", "3", "1"],
   before: `class Factura {
   double impuesto() {
-!    TaxMasterClient api = new TaxMasterClient("KEY-123");
-!    TaxResponse r = api.calc(new TaxRequest("CO", subtotal));
-!    return r.getAmountCents() / 100.0;
+!    TaxMasterClient api = new TaxMasterClient("KEY-123");  // clave en duro
+!    TaxResponse r = api.calc(
+!        new TaxRequest("CO", Math.round(subtotal * 100), "FACTURA"));
+!    if (r.getStatus() != 200) return subtotal * 0.19;      // respaldo
+!    return r.getAmountCents() / 100.0;                     // centavos
   }
 }
 
-// Cotizacion y Devolucion repiten lo mismo...`,
-  after: `// Indirección: intermediario entre el dominio y la API
+class Cotizacion {
+!  double impuesto() { /* las MISMAS cinco lineas, copiadas */ }
+}
+class Devolucion {
+!  double impuesto() { /* copiadas... y aqui se olvido el respaldo:
+!                         si la API falla, el impuesto queda en 0 */ }
+}
+
+// 3 clases saben de la clave, del formato y de los centavos`,
+  after: `// Indireccion: un intermediario entre el dominio y la API externa
 +class ServicioImpuestos {
-+  private final TaxMasterClient api;
-+  double calcular(String pais, double base) {
-+    TaxResponse r = api.calc(new TaxRequest(pais, base));
-+    return r.getAmountCents() / 100.0;
++  private final TaxMasterClient api;        // la clave vive aqui
++  private final double tasaRespaldo;
++
++  double calcular(String pais, double base, String tipoDoc) {
++    TaxResponse r = api.calc(
++        new TaxRequest(pais, Math.round(base * 100), tipoDoc));
++    return r.getStatus() == 200
++         ? r.getAmountCents() / 100.0       // centavos -> pesos
++         : base * tasaRespaldo;             // la API se cayo
 +  }
 +}
 
-class Factura {
-  double impuesto(ServicioImpuestos impuestos) {
-    return impuestos.calcular("CO", subtotal);
-  }
-}`,
+class Factura {                   // ya no sabe que TaxMaster existe
+  private final ServicioImpuestos impuestos;
++  double impuesto() {
++    return impuestos.calcular("CO", subtotal, "FACTURA");
++  }
+}
+
+// Cotizacion y Devolucion: la misma linea. Nadie olvida el respaldo.`,
   dBefore: {
     boxes: [
-      { id: "f", name: "Factura", x: 10, y: 20, w: 150, kind: "bad" },
-      { id: "c", name: "Cotizacion", x: 10, y: 170, w: 150, kind: "bad" },
-      { id: "d", name: "Devolucion", x: 10, y: 320, w: 150, kind: "bad" },
-      { id: "t", name: "TaxMasterClient", st: "API externa", x: 360, y: 160, w: 190, ops: ["calc(req)"], kind: "ext" }
+      { id: "f", name: "Factura", x: 10, y: 20, w: 215, ops: ["!impuesto()"], kind: "bad" },
+      { id: "c", name: "Cotizacion", x: 10, y: 170, w: 215, ops: ["!impuesto()"], kind: "bad" },
+      { id: "d", name: "Devolucion", x: 10, y: 320, w: 215, ops: ["!impuesto() sin respaldo"], kind: "bad" },
+      { id: "t", name: "TaxMasterClient", st: "API externa", x: 370, y: 160, w: 180, ops: ["calc(req)"], kind: "ext" }
     ],
     edges: [ { a: "f", b: "t", t: "dep", k: "bad" }, { a: "c", b: "t", t: "dep", k: "bad" }, { a: "d", b: "t", t: "dep", k: "bad" } ]
   },
@@ -793,7 +939,7 @@ class Factura {
       { id: "f", name: "Factura", x: 0, y: 20, w: 130 },
       { id: "c", name: "Cotizacion", x: 0, y: 170, w: 130 },
       { id: "d", name: "Devolucion", x: 0, y: 320, w: 130 },
-      { id: "s", name: "ServicioImpuestos", st: "intermediario", x: 185, y: 160, w: 190, ops: ["+calcular(pais, b)"], kind: "good" },
+      { id: "s", name: "ServicioImpuestos", st: "intermediario", x: 160, y: 150, w: 235, ops: ["+calcular(pais, base, tipo)"], kind: "good" },
       { id: "t", name: "TaxMaster", st: "API externa", x: 420, y: 165, w: 140, ops: ["calc(req)"], kind: "ext" }
     ],
     edges: [ { a: "f", b: "s", t: "dep" }, { a: "c", b: "s", t: "dep" }, { a: "d", b: "s", t: "dep" }, { a: "s", b: "t", t: "dep", k: "good" } ]
@@ -804,32 +950,47 @@ class Factura {
   one: "Aislar lo que puede cambiar",
   que: "Identifica qué puede cambiar y envuélvelo tras una interfaz estable.",
   porque: "El cambio llega, pero no rompe al resto del sistema.",
-  vBefore: "Checkout está casado con PayPal. Si cambiamos de pasarela, hay que reescribirlo.",
-  vAfter: "Checkout usa PasarelaPago. ¿Nequi mañana? Una clase nueva, Checkout intacto.",
+  vBefore: "Checkout habla la jerga de PayPal: estados, códigos de error y moneda del proveedor.",
+  vAfter: "Checkout usa PasarelaPago, con nuestro vocabulario. ¿Nequi mañana? Una clase nueva.",
   kpi: ["Si cambia la pasarela, se reescribe", "Checkout", "nada"],
   before: `class Checkout {
-!  private final PayPalSDK paypal = new PayPalSDK();
+!  private final PayPalSDK paypal = new PayPalSDK("merchant-1");
 
-  void pagar(Pedido p) {
-!    paypal.createPayment(p.total(), "USD");
+  Recibo pagar(Pedido pedido) {
+!    PayPalPayment pago = paypal.createPayment(pedido.total(), "USD");
+!    if (!"APPROVED".equals(pago.getState())) {        // jerga de PayPal
+!      throw new IllegalStateException(pago.getErrorCode());
+!    }
+!    return new Recibo(pago.getId(), pago.getAmount(), "PayPal");
   }
 }
 
-// "Nos pasamos a Stripe" -> reescribir Checkout,
-//  y todo lo que use PayPalSDK`,
-  after: `+interface PasarelaPago { void cobrar(double monto); }
+// "nos pasamos a Stripe" -> reescribir Checkout y todo lo que
+//  mencione PayPalSDK. Y las pruebas solo corren llamando a PayPal.`,
+  after: `// 1. el punto de variacion: como se cobra
+// 2. se envuelve en un contrato estable, con NUESTRO vocabulario
++interface PasarelaPago {
++  Cobro cobrar(double monto, String moneda) throws PagoRechazado;
++}
 
-class PagoPayPal implements PasarelaPago {
-  public void cobrar(double m) { sdk.createPayment(m, "USD"); }
+class PagoPayPal implements PasarelaPago {          // adaptador
+  public Cobro cobrar(double m, String moneda) throws PagoRechazado {
+    PayPalPayment p = sdk.createPayment(m, moneda);
+    if (!"APPROVED".equals(p.getState())) throw new PagoRechazado(...);
+    return new Cobro(p.getId(), p.getAmount(), "PayPal");
+  }
 }
-class PagoStripe implements PasarelaPago {
-  public void cobrar(double m) { Stripe.charge((long) (m * 100)); }
-}
+class PagoStripe implements PasarelaPago { /* centavos + excepciones */ }
++class PagoNequi  implements PasarelaPago { /* llego despues: nada cambio */ }
 
 class Checkout {
-+  private final PasarelaPago pasarela;       // no sabe cuál es
-  Checkout(PasarelaPago p) { this.pasarela = p; }
-  void pagar(Pedido p) { pasarela.cobrar(p.total()); }
++  private final PasarelaPago pasarela;   // 3. depende del contrato
+  Checkout(PasarelaPago pasarela) { this.pasarela = pasarela; }
+
+  Recibo pagar(Pedido pedido) {
+    Cobro c = pasarela.cobrar(pedido.total(), "COP");
+    return new Recibo(c.referencia(), c.monto(), c.pasarela());
+  }
 }`,
   dBefore: {
     boxes: [
@@ -842,7 +1003,7 @@ class Checkout {
   dAfter: {
     boxes: [
       { id: "c", name: "Checkout", x: 10, y: 40, w: 160, ops: ["pagar(p)"] },
-      { id: "i", name: "PasarelaPago", st: "interface", x: 290, y: 30, w: 210, ops: ["+cobrar(monto)"], kind: "good" },
+      { id: "i", name: "PasarelaPago", st: "interface estable", x: 280, y: 20, w: 225, ops: ["+cobrar(monto, moneda)"], kind: "good" },
       { id: "a", name: "PagoPayPal", x: 140, y: 270, w: 130, ops: ["cobrar(m)"] },
       { id: "b", name: "PagoStripe", x: 285, y: 270, w: 130, ops: ["cobrar(m)"] },
       { id: "n", name: "PagoNequi", st: "futuro", x: 430, y: 270, w: 130, ops: ["cobrar(m)"], kind: "new" }
