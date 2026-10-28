@@ -9,7 +9,7 @@ public class Demo {
         System.out.println();
         DemoAntes.ejecutar();
         DemoDespues.ejecutar();
-        System.out.println("Servicios que conoce la UI:  antes 3  ->  despues 1");
+        System.out.println("Servicios que conoce la pantalla:  antes 2  ->  despues 1");
         System.out.println();
     }
 }

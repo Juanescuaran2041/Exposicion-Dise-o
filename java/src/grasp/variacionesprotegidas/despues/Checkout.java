@@ -1,7 +1,5 @@
 package grasp.variacionesprotegidas.despues;
 
-import grasp.variacionesprotegidas.comun.Pedido;
-
 public class Checkout {
     private PasarelaPago pasarela;
 
@@ -9,7 +7,8 @@ public class Checkout {
         this.pasarela = pasarela;
     }
 
-    public Cobro pagar(Pedido pedido) {
-        return pasarela.cobrar(pedido.getTotal());
+    // No cambia aunque cambie la pasarela.
+    public String pagar(double monto) {
+        return pasarela.cobrar(monto);
     }
 }

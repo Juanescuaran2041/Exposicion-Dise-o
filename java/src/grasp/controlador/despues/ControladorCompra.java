@@ -2,32 +2,25 @@ package grasp.controlador.despues;
 
 import grasp.controlador.comun.Inventario;
 import grasp.controlador.comun.PasarelaPago;
-import grasp.controlador.comun.Pedido;
-import grasp.controlador.comun.RepositorioPedidos;
 
 public class ControladorCompra {
     private Inventario inventario;
     private PasarelaPago pasarela;
-    private RepositorioPedidos pedidos;
 
-    public ControladorCompra(Inventario inventario, PasarelaPago pasarela,
-                             RepositorioPedidos pedidos) {
+    public ControladorCompra(Inventario inventario, PasarelaPago pasarela) {
         this.inventario = inventario;
         this.pasarela = pasarela;
-        this.pedidos = pedidos;
     }
 
-    // Devuelve el pedido, o null si la compra no se pudo completar.
-    public Pedido confirmarCompra(int unidades, double total, String tarjeta) {
+    // El caso de uso completo, sin una sola linea de pantalla.
+    public boolean confirmarCompra(int unidades, double total, String tarjeta) {
         if (!inventario.reservar(unidades)) {
-            return null;
+            return false;
         }
-        Pedido pedido = new Pedido(total);
-        if (!pasarela.cobrar(tarjeta, pedido.getTotal())) {
-            inventario.liberar(unidades);         // la correccion vive aqui
-            return null;
+        if (!pasarela.cobrar(tarjeta, total)) {
+            inventario.liberar(unidades);     // la correccion vive aqui
+            return false;
         }
-        pedidos.guardar(pedido);
-        return pedido;
+        return true;
     }
 }

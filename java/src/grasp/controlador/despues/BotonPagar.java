@@ -1,7 +1,5 @@
 package grasp.controlador.despues;
 
-import grasp.controlador.comun.Pedido;
-
 public class BotonPagar {
     private ControladorCompra controlador;
 
@@ -9,21 +7,16 @@ public class BotonPagar {
         this.controlador = controlador;
     }
 
-    // La interfaz delega y pinta.
+    // La pantalla delega y pinta.
     public void alHacerClic(int unidades, double total, String tarjeta) {
-        Pedido pedido = controlador.confirmarCompra(unidades, total, tarjeta);
-        if (pedido != null) {
-            mostrarRecibo(pedido);
+        if (controlador.confirmarCompra(unidades, total, tarjeta)) {
+            mostrar("OK: compra confirmada");
         } else {
-            mostrarError("No se pudo completar la compra");
+            mostrar("ERROR: no se pudo completar la compra");
         }
     }
 
-    private void mostrarError(String mensaje) {
-        System.out.println("    [pantalla] ERROR: " + mensaje);
-    }
-
-    private void mostrarRecibo(Pedido pedido) {
-        System.out.printf("    [pantalla] OK: compra por $%,.0f%n", pedido.getTotal());
+    private void mostrar(String mensaje) {
+        System.out.println("    [pantalla] " + mensaje);
     }
 }

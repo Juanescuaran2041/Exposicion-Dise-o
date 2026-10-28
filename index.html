@@ -524,79 +524,65 @@ class Pedido {
   one: "Un coordinador recibe los eventos del sistema",
   que: "Un objeto que no es UI recibe la operación del sistema y coordina a los demás.",
   porque: "La interfaz no carga reglas de negocio; se puede cambiar sin tocar la lógica.",
-  vBefore: "El botón reserva, cobra, guarda y hasta deshace la reserva si el pago falla.",
-  vAfter: "El botón delega y pinta; el controlador coordina. El caso de uso ya se invoca sin UI.",
-  kpi: ["Servicios que conoce la UI", "3", "1"],
-  before: `class BotonPagar {
+  vBefore: "El botón reserva, cobra y hasta deshace la reserva si el pago falla.",
+  vAfter: "El botón delega y pinta; el controlador coordina. El caso de uso ya se invoca sin pantalla.",
+  kpi: ["Servicios que conoce la pantalla", "2", "1"],
+  before: `class BotonPagar {                        // la pantalla
   void alHacerClic(int unidades, double total, String tarjeta) {
 !    if (!inventario.reservar(unidades)) {
-!      mostrarError("Sin stock");
+!      mostrar("ERROR: sin stock");
 !      return;
 !    }
-!    Pedido pedido = new Pedido(total);
-!    if (!pasarela.cobrar(tarjeta, pedido.getTotal())) {
+!    if (!pasarela.cobrar(tarjeta, total)) {
 !      inventario.liberar(unidades);
-!      mostrarError("Pago rechazado");
+!      mostrar("ERROR: pago rechazado");
 !      return;
 !    }
-!    pedidos.guardar(pedido);
-    mostrarRecibo(pedido);
+    mostrar("OK: compra confirmada");
   }
 }`,
-  after: `class BotonPagar {
+  after: `class BotonPagar {                        // la pantalla
   void alHacerClic(int unidades, double total, String tarjeta) {
-+    Pedido pedido =
-+        controlador.confirmarCompra(unidades, total, tarjeta);
-+    if (pedido != null) mostrarRecibo(pedido);
-+    else mostrarError("No se pudo completar la compra");
++    if (controlador.confirmarCompra(unidades, total, tarjeta))
++      mostrar("OK: compra confirmada");
++    else
++      mostrar("ERROR: no se pudo completar la compra");
   }
 }
-+class ControladorCompra {
-+  Pedido confirmarCompra(int unidades, double total,
-+                         String tarjeta) {
-+    if (!inventario.reservar(unidades)) return null;
-+    Pedido pedido = new Pedido(total);
-+    if (!pasarela.cobrar(tarjeta, pedido.getTotal())) {
+
++class ControladorCompra {     // el caso de uso, sin pantalla
++  boolean confirmarCompra(int unidades, double total,
++                          String tarjeta) {
++    if (!inventario.reservar(unidades)) return false;
++    if (!pasarela.cobrar(tarjeta, total)) {
 +      inventario.liberar(unidades);
-+      return null;
++      return false;
 +    }
-+    pedidos.guardar(pedido);
-+    return pedido;
++    return true;
 +  }
 +}`,
   dBefore: {
     boxes: [
-      { id: "bot", name: "BotonPagar", st: "UI", x: 0, y: 0, w: 310, attrs: ["inventario: Inventario", "pasarela: PasarelaPago", "pedidos: RepositorioPedidos"], ops: ["BotonPagar(inventario, pasarela, pedidos)", "!alHacerClic(unidades, total, tarjeta)", "-mostrarError(mensaje)", "-mostrarRecibo(pedido)"], kind: "bad pulse" },
-      { id: "inv", name: "Inventario", x: 390, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
-      { id: "pas", name: "PasarelaPago", x: 390, y: 150, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] },
-      { id: "rep", name: "RepositorioPedidos", x: 390, y: 240, w: 225, attrs: ["guardados: ArrayList<Pedido>"], ops: ["guardar(pedido)", "cantidad(): int"] },
-      { id: "ped", name: "Pedido", x: 0, y: 240, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
+      { id: "bot", name: "BotonPagar", st: "UI", x: 0, y: 30, w: 285, attrs: ["inventario: Inventario", "pasarela: PasarelaPago"], ops: ["BotonPagar(inventario, pasarela)", "!alHacerClic(unidades, total, tarjeta)", "-mostrar(mensaje)"], kind: "bad pulse" },
+      { id: "inv", name: "Inventario", x: 360, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
+      { id: "pas", name: "PasarelaPago", x: 360, y: 180, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] }
     ],
     edges: [
       { a: "bot", b: "inv", t: "assoc", k: "bad", ma: "0..*", mb: "1" },
-      { a: "bot", b: "pas", t: "assoc", k: "bad", ma: "0..*", mb: "1" },
-      { a: "bot", b: "rep", t: "assoc", k: "bad", ma: "0..*", mb: "1" },
-      { a: "bot", b: "ped", t: "dep", k: "bad", label: "«create»" },
-      { a: "rep", b: "ped", t: "aggr", ma: "1", mb: "0..*" }
+      { a: "bot", b: "pas", t: "assoc", k: "bad", ma: "0..*", mb: "1" }
     ]
   },
   dAfter: {
     boxes: [
-      { id: "bot", name: "BotonPagar", st: "UI", x: 0, y: 0, w: 285, attrs: ["controlador: ControladorCompra"], ops: ["BotonPagar(controlador)", "alHacerClic(unidades, total, tarjeta)", "-mostrarError(mensaje)", "-mostrarRecibo(pedido)"] },
-      { id: "con", name: "ControladorCompra", st: "controlador", x: 0, y: 185, w: 365, attrs: ["inventario: Inventario", "pasarela: PasarelaPago", "pedidos: RepositorioPedidos"], ops: ["ControladorCompra(inventario, pasarela, pedidos)", "*confirmarCompra(unidades, total, tarjeta): Pedido"], kind: "good" },
-      { id: "inv", name: "Inventario", x: 450, y: 0, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
-      { id: "pas", name: "PasarelaPago", x: 450, y: 150, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] },
-      { id: "rep", name: "RepositorioPedidos", x: 450, y: 235, w: 225, attrs: ["guardados: ArrayList<Pedido>"], ops: ["guardar(pedido)", "cantidad(): int"] },
-      { id: "ped", name: "Pedido", x: 450, y: 360, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
+      { id: "bot", name: "BotonPagar", st: "UI", x: 0, y: 0, w: 285, attrs: ["controlador: ControladorCompra"], ops: ["BotonPagar(controlador)", "alHacerClic(unidades, total, tarjeta)", "-mostrar(mensaje)"] },
+      { id: "con", name: "ControladorCompra", st: "controlador", x: 0, y: 185, w: 370, attrs: ["inventario: Inventario", "pasarela: PasarelaPago"], ops: ["ControladorCompra(inventario, pasarela)", "*confirmarCompra(unidades, total, tarjeta): boolean"], kind: "good" },
+      { id: "inv", name: "Inventario", x: 455, y: 90, w: 220, attrs: ["disponibles: int"], ops: ["Inventario(disponibles)", "reservar(unidades): boolean", "liberar(unidades)", "getDisponibles(): int"] },
+      { id: "pas", name: "PasarelaPago", x: 455, y: 255, w: 245, ops: ["cobrar(tarjeta, monto): boolean"] }
     ],
     edges: [
       { a: "bot", b: "con", t: "assoc", k: "good", ma: "0..*", mb: "1" },
-      { a: "bot", b: "ped", t: "dep" },
       { a: "con", b: "inv", t: "assoc", ma: "0..*", mb: "1" },
-      { a: "con", b: "pas", t: "assoc", ma: "0..*", mb: "1" },
-      { a: "con", b: "rep", t: "assoc", ma: "0..*", mb: "1" },
-      { a: "con", b: "ped", t: "dep", label: "«create»" },
-      { a: "rep", b: "ped", t: "aggr", ma: "1", mb: "0..*" }
+      { a: "con", b: "pas", t: "assoc", ma: "0..*", mb: "1" }
     ]
   }
 
@@ -928,76 +914,72 @@ class Factura {
   one: "Aislar lo que puede cambiar",
   que: "Identifica qué puede cambiar y envuélvelo tras una interfaz estable.",
   porque: "El cambio llega, pero no rompe al resto del sistema.",
-  vBefore: "Checkout habla el idioma de PayPal: su SDK, sus estados y sus tipos.",
+  vBefore: "Checkout habla el idioma de PayPal: su SDK, su tipo y su estado.",
   vAfter: "Checkout usa PasarelaPago, con nuestro vocabulario. ¿Nequi mañana? Una clase nueva.",
   kpi: ["Si cambia la pasarela, se reescribe", "Checkout", "nada"],
   before: `class Checkout {
 !  private PayPalSDK paypal = new PayPalSDK();
 
-  String pagar(Pedido pedido) {
-!    PayPalPago pago =
-!        paypal.createPayment(pedido.getTotal());
+  String pagar(double monto) {
+!    PayPalPago pago = paypal.createPayment(monto);
 !    if (!pago.getEstado().equals("APPROVED")) {
 !      throw new IllegalStateException("Pago rechazado");
 !    }
 !    return pago.getId();
   }
 }`,
-  after: `+interface PasarelaPago {
-+  Cobro cobrar(double monto);
+  after: `+interface PasarelaPago {         // nuestro vocabulario
++  String cobrar(double monto);
 +}
+
 class PagoPayPal implements PasarelaPago {
-  public Cobro cobrar(double monto) {
+  public String cobrar(double monto) {
     PayPalPago pago = sdk.createPayment(monto);
     if (!pago.getEstado().equals("APPROVED"))
       throw new IllegalStateException("PayPal rechazo el pago");
-    return new Cobro(pago.getId(), pago.getMonto());
+    return pago.getId();
   }
 }
-+class PagoNequi implements PasarelaPago { ... }
+
++class PagoNequi implements PasarelaPago {
++  public String cobrar(double monto) {
++    return "NQ-" + (int) monto;
++  }
++}
 
 class Checkout {
 +  private PasarelaPago pasarela;
-+  Cobro pagar(Pedido pedido) {
-+    return pasarela.cobrar(pedido.getTotal());
++  String pagar(double monto) {
++    return pasarela.cobrar(monto);
 +  }
 }`,
   dBefore: {
     boxes: [
-      { id: "che", name: "Checkout", x: 0, y: 100, w: 180, attrs: ["!paypal: PayPalSDK"], ops: ["!pagar(pedido): String"], kind: "bad pulse" },
-      { id: "pay", name: "PayPalSDK", st: "librería externa", x: 250, y: 0, w: 250, ops: ["createPayment(monto): PayPalPago"], kind: "ext" },
-      { id: "pay2", name: "PayPalPago", st: "tipo de PayPal", x: 250, y: 100, w: 230, attrs: ["id: String", "estado: String", "monto: double"], ops: ["PayPalPago(id, estado, monto)", "getId(): String", "getEstado(): String", "getMonto(): double"], kind: "ext" },
-      { id: "ped", name: "Pedido", x: 0, y: 240, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
+      { id: "che", name: "Checkout", x: 0, y: 70, w: 170, attrs: ["!paypal: PayPalSDK"], ops: ["!pagar(monto): String"], kind: "bad pulse" },
+      { id: "pay", name: "PayPalSDK", st: "librería externa", x: 310, y: 0, w: 250, ops: ["createPayment(monto): PayPalPago"], kind: "ext" },
+      { id: "pay2", name: "PayPalPago", st: "tipo de PayPal", x: 310, y: 120, w: 185, attrs: ["id: String", "estado: String"], ops: ["PayPalPago(id, estado)", "getId(): String", "getEstado(): String"], kind: "ext" }
     ],
     edges: [
-      { a: "che", b: "pay", t: "assoc", k: "bad", label: "«create»", ma: "0..*", mb: "1" },
+      { a: "che", b: "pay", t: "assoc", k: "bad", label: "«create»", ma: "1", mb: "1" },
       { a: "che", b: "pay2", t: "dep", k: "bad" },
-      { a: "che", b: "ped", t: "dep" },
       { a: "pay", b: "pay2", t: "dep", label: "«create»" }
     ]
   },
   dAfter: {
     boxes: [
-      { id: "che", name: "Checkout", x: 0, y: 170, w: 185, attrs: ["pasarela: PasarelaPago"], ops: ["Checkout(pasarela)", "pagar(pedido): Cobro"] },
-      { id: "pas", name: "PasarelaPago", st: "interface", x: 250, y: 170, w: 170, ops: ["*cobrar(monto): Cobro"], kind: "good" },
-      { id: "cob", name: "Cobro", x: 0, y: 0, w: 200, attrs: ["referencia: String", "monto: double"], ops: ["Cobro(referencia, monto)", "getReferencia(): String", "getMonto(): double"], kind: "good" },
-      { id: "pag", name: "PagoPayPal", x: 250, y: 290, w: 170, attrs: ["sdk: PayPalSDK"], ops: ["cobrar(monto): Cobro"] },
-      { id: "pag2", name: "PagoNequi", st: "nuevo", x: 250, y: 50, w: 170, ops: ["cobrar(monto): Cobro"], kind: "new" },
-      { id: "pay", name: "PayPalSDK", st: "externa", x: 470, y: 60, w: 250, ops: ["createPayment(monto): PayPalPago"], kind: "ext" },
-      { id: "pay2", name: "PayPalPago", st: "externa", x: 470, y: 170, w: 230, attrs: ["id: String", "estado: String", "monto: double"], ops: ["PayPalPago(id, estado, monto)", "getId(): String", "getEstado(): String", "getMonto(): double"], kind: "ext" },
-      { id: "ped", name: "Pedido", x: 0, y: 300, w: 160, attrs: ["total: double"], ops: ["Pedido(total)", "getTotal(): double"] }
+      { id: "che", name: "Checkout", x: 0, y: 150, w: 185, attrs: ["pasarela: PasarelaPago"], ops: ["Checkout(pasarela)", "pagar(monto): String"] },
+      { id: "pas", name: "PasarelaPago", st: "interface", x: 290, y: 150, w: 180, ops: ["*cobrar(monto): String"], kind: "good" },
+      { id: "pag", name: "PagoPayPal", x: 290, y: 300, w: 180, attrs: ["sdk: PayPalSDK"], ops: ["cobrar(monto): String"] },
+      { id: "pag2", name: "PagoNequi", st: "nuevo", x: 290, y: 20, w: 180, ops: ["cobrar(monto): String"], kind: "new" },
+      { id: "pay", name: "PayPalSDK", st: "externa", x: 0, y: 300, w: 250, ops: ["createPayment(monto): PayPalPago"], kind: "ext" },
+      { id: "pay2", name: "PayPalPago", st: "externa", x: 490, y: 130, w: 185, attrs: ["id: String", "estado: String"], ops: ["PayPalPago(id, estado)", "getId(): String", "getEstado(): String"], kind: "ext" }
     ],
     edges: [
       { a: "che", b: "pas", t: "assoc", k: "good", ma: "0..*", mb: "1" },
-      { a: "che", b: "cob", t: "dep" },
-      { a: "che", b: "ped", t: "dep" },
-      { a: "pas", b: "cob", t: "dep" },
       { a: "pag", b: "pas", t: "impl" },
-      { a: "pag", b: "pay", t: "assoc", ma: "0..*", mb: "1" },
-      { a: "pag", b: "cob", t: "dep" },
+      { a: "pag", b: "pay", t: "assoc", ma: "1", mb: "1" },
       { a: "pag", b: "pay2", t: "dep" },
       { a: "pag2", b: "pas", t: "impl" },
-      { a: "pag2", b: "cob", t: "dep" },
       { a: "pay", b: "pay2", t: "dep" }
     ]
   }

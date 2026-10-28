@@ -7,11 +7,11 @@ import grasp.variacionesprotegidas.comun.PayPalSDK;
 public class PagoPayPal implements PasarelaPago {
     private PayPalSDK sdk = new PayPalSDK();
 
-    public Cobro cobrar(double monto) {
+    public String cobrar(double monto) {
         PayPalPago pago = sdk.createPayment(monto);
         if (!pago.getEstado().equals("APPROVED")) {
             throw new IllegalStateException("PayPal rechazo el pago");
         }
-        return new Cobro(pago.getId(), pago.getMonto());
+        return pago.getId();
     }
 }

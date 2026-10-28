@@ -1,6 +1,6 @@
 package grasp.variacionesprotegidas.despues;
 
-// La interfaz estable: nuestro vocabulario, no el de PayPal.
+// El punto estable: nuestro vocabulario, no el de PayPal.
 public interface PasarelaPago {
-    Cobro cobrar(double monto);
+    String cobrar(double monto);
 }
